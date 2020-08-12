@@ -32,18 +32,13 @@
 		7CE86D04217D3F1A00382306 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE86D03217D3F1A00382306 /* UIKit.framework */; };
 		7CE86D05217D432C00382306 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7CE86CE4217D3E7600382306 /* GoogleMaps.bundle */; };
 		7CED0D2621BDDC47003361BE /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED0D2521BDDC47003361BE /* CardCell.swift */; };
-		E19860F024E3962C0028F0A4 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E19860EC24E395F60028F0A4 /* GoogleMaps.framework */; };
-		E19860F124E3962C0028F0A4 /* GoogleMaps.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E19860EC24E395F60028F0A4 /* GoogleMaps.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E19860F424E396410028F0A4 /* GoogleMapsBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E19860F324E396410028F0A4 /* GoogleMapsBase.framework */; };
-		E19860F524E396410028F0A4 /* GoogleMapsBase.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E19860F324E396410028F0A4 /* GoogleMapsBase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E19860F724E396520028F0A4 /* GoogleMapsCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E19860F624E396520028F0A4 /* GoogleMapsCore.framework */; };
-		E19860F824E396520028F0A4 /* GoogleMapsCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E19860F624E396520028F0A4 /* GoogleMapsCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E19860F924E398FA0028F0A4 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE75741218FA5DD000DD258 /* FBSDKCoreKit.framework */; };
-		E19860FA24E398FA0028F0A4 /* FBSDKCoreKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE75741218FA5DD000DD258 /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E19860FB24E399080028F0A4 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE7573E218FA5DA000DD258 /* FBSDKLoginKit.framework */; };
-		E19860FC24E399080028F0A4 /* FBSDKLoginKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE7573E218FA5DA000DD258 /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E19860FD24E399150028F0A4 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE75740218FA5DC000DD258 /* FBSDKShareKit.framework */; };
-		E19860FE24E399150028F0A4 /* FBSDKShareKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE75740218FA5DC000DD258 /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E163B35324E39D48001AA4A6 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE86CE0217D3E6200382306 /* GoogleMaps.framework */; };
+		E163B35624E39D55001AA4A6 /* GoogleMapsBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE86CDE217D3E4400382306 /* GoogleMapsBase.framework */; };
+		E163B35824E39D68001AA4A6 /* GoogleMapsCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE86CE2217D3E6E00382306 /* GoogleMapsCore.framework */; };
+		E163B35A24E39D77001AA4A6 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE7573F218FA5DA000DD258 /* Bolts.framework */; };
+		E163B35C24E39D8D001AA4A6 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE75741218FA5DD000DD258 /* FBSDKCoreKit.framework */; };
+		E163B35E24E39D9B001AA4A6 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE7573E218FA5DA000DD258 /* FBSDKLoginKit.framework */; };
+		E163B36024E39DB9001AA4A6 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE75740218FA5DC000DD258 /* FBSDKShareKit.framework */; };
 		E207B68B2135AF7C007F26F9 /* Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E207B68A2135AF7C007F26F9 /* Signup.swift */; };
 		E207B68D2135AF96007F26F9 /* Forgot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E207B68C2135AF96007F26F9 /* Forgot.swift */; };
 		E207B68F2135AFDA007F26F9 /* Activate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E207B68E2135AFDA007F26F9 /* Activate.swift */; };
@@ -140,25 +135,6 @@
 		E25456B120B8F85700D9F8A6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E25456AF20B8F85700D9F8A6 /* LaunchScreen.storyboard */; };
 		E2BEC09F2134D7DA00AB6D3D /* Wait.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BEC09E2134D7DA00AB6D3D /* Wait.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		E19860F224E3962C0028F0A4 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				E19860F124E3962C0028F0A4 /* GoogleMaps.framework in Embed Frameworks */,
-				E19860FA24E398FA0028F0A4 /* FBSDKCoreKit.framework in Embed Frameworks */,
-				E19860FE24E399150028F0A4 /* FBSDKShareKit.framework in Embed Frameworks */,
-				E19860FC24E399080028F0A4 /* FBSDKLoginKit.framework in Embed Frameworks */,
-				E19860F824E396520028F0A4 /* GoogleMapsCore.framework in Embed Frameworks */,
-				E19860F524E396410028F0A4 /* GoogleMapsBase.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		50C91C172216FAA80065A51A /* GoogleClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleClient.swift; sourceTree = "<group>"; };
@@ -305,25 +281,26 @@
 				7CE86D04217D3F1A00382306 /* UIKit.framework in Frameworks */,
 				7CE86D02217D3F1000382306 /* SystemConfiguration.framework in Frameworks */,
 				7CE86D00217D3F0A00382306 /* QuartzCore.framework in Frameworks */,
-				E19860F724E396520028F0A4 /* GoogleMapsCore.framework in Frameworks */,
+				E163B35624E39D55001AA4A6 /* GoogleMapsBase.framework in Frameworks */,
+				E163B35C24E39D8D001AA4A6 /* FBSDKCoreKit.framework in Frameworks */,
 				7CE86CFE217D3F0400382306 /* OpenGLES.framework in Frameworks */,
-				E19860F924E398FA0028F0A4 /* FBSDKCoreKit.framework in Frameworks */,
-				E19860FD24E399150028F0A4 /* FBSDKShareKit.framework in Frameworks */,
 				7CE86CFC217D3EFC00382306 /* libz.tbd in Frameworks */,
+				E163B36024E39DB9001AA4A6 /* FBSDKShareKit.framework in Frameworks */,
 				7CE86CFA217D3EF600382306 /* libc++.tbd in Frameworks */,
+				E163B35E24E39D9B001AA4A6 /* FBSDKLoginKit.framework in Frameworks */,
 				7CE86CF8217D3EEF00382306 /* ImageIO.framework in Frameworks */,
 				7CE86CF6217D3EE700382306 /* GLKit.framework in Frameworks */,
-				E19860F424E396410028F0A4 /* GoogleMapsBase.framework in Frameworks */,
-				E19860FB24E399080028F0A4 /* FBSDKLoginKit.framework in Frameworks */,
 				7CE86CF4217D3EE000382306 /* CoreText.framework in Frameworks */,
 				7CE86CF2217D3ED900382306 /* CoreTelephony.framework in Frameworks */,
+				E163B35824E39D68001AA4A6 /* GoogleMapsCore.framework in Frameworks */,
 				7CE86CF0217D3ED300382306 /* CoreLocation.framework in Frameworks */,
 				7CE86CEE217D3ECC00382306 /* CoreImage.framework in Frameworks */,
 				7CE86CEC217D3EC400382306 /* CoreGraphics.framework in Frameworks */,
+				E163B35A24E39D77001AA4A6 /* Bolts.framework in Frameworks */,
 				7CE86CEA217D3EBD00382306 /* CoreData.framework in Frameworks */,
+				E163B35324E39D48001AA4A6 /* GoogleMaps.framework in Frameworks */,
 				7CE75743218FA5DD000DD258 /* Bolts.framework in Frameworks */,
 				7CE86CE8217D3EB600382306 /* Accelerate.framework in Frameworks */,
-				E19860F024E3962C0028F0A4 /* GoogleMaps.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,7 +561,6 @@
 				E254569F20B8F85500D9F8A6 /* Sources */,
 				E25456A020B8F85500D9F8A6 /* Frameworks */,
 				E25456A120B8F85500D9F8A6 /* Resources */,
-				E19860F224E3962C0028F0A4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
