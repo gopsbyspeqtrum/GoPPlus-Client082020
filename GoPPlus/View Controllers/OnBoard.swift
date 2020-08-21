@@ -111,7 +111,7 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
                 self.makeModel.text = data.marca! + " " + data.modelo!
                 self.extraInfo.text = data.color! + " " + data.placas!
                 self.licNumber.text = data.permiso ?? ""
-                self.kmInfo.text = String(data.km ?? 0) + "km"
+                self.kmInfo.text = String(data.km ) + "km"
                 
                 let profileImageUrl = Constants.APIEndpoint.driver + "images"
                 let parameters:[String:String] = ["id": String(data.id_conductor) + ".jpg"]

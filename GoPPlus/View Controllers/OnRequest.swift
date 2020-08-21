@@ -192,7 +192,7 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     @IBAction func unwindFromRating(_ sender: UIStoryboardSegue) {
-        if let source = sender.source as? Rating {
+        if sender.source is Rating {
             self.ratingOpened = false
         }
     }

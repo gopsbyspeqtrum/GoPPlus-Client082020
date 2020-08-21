@@ -2,16 +2,16 @@
 //  GMSMutablePath.h
 //  Google Maps SDK for iOS
 //
-//  Copyright 2013 Google Inc.
+//  Copyright 2013 Google LLC
 //
 //  Usage of this SDK is subject to the Google Maps/Google Earth APIs Terms of
 //  Service: https://developers.google.com/maps/terms
 //
 
-#import "GMSPath.h"
-
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
+
+#import "GMSPath.h"
 
 /**
  * GMSMutablePath is a dynamic (resizable) array of CLLocationCoordinate2D. All coordinates must be

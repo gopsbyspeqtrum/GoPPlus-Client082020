@@ -4,6 +4,7 @@ import FBSDKLoginKit
 import UserNotifications
 
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
@@ -86,9 +87,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         NotificationCenter.default.post(name: Notification.Name(rawValue: "notification_recieved"), object: nil)
     }
     
-    @available(iOS 10.0, *)
+   @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.badge,.alert,.sound])
     }
     
 }
+
+

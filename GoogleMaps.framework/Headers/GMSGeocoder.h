@@ -2,7 +2,7 @@
 //  GMSGeocoder.h
 //  Google Maps SDK for iOS
 //
-//  Copyright 2012 Google Inc.
+//  Copyright 2012 Google LLC
 //
 //  Usage of this SDK is subject to the Google Maps/Google Earth APIs Terms of
 //  Service: https://developers.google.com/maps/terms
@@ -12,9 +12,9 @@
 
 #import "GMSAddress.h"
 
-NS_ASSUME_NONNULL_BEGIN;
-
 @class GMSReverseGeocodeResponse;
+
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  * \defgroup GeocoderErrorCode GMSGeocoderErrorCode
@@ -71,4 +71,4 @@ typedef void (^GMSReverseGeocodeCallback)(GMSReverseGeocodeResponse *_Nullable,
 
 @end
 
-NS_ASSUME_NONNULL_END;
+NS_ASSUME_NONNULL_END

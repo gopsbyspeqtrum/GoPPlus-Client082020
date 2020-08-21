@@ -90,7 +90,7 @@ class Login: UIViewController {
                 self.view.isUserInteractionEnabled = true
                 
                 do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: response, options: [])
+                    let jsonData = try JSONSerialization.data(withJSONObject: response as Any, options: [])
                     let result =  try JSONDecoder().decode(AppUser.self, from: jsonData)
                     
                     if result.status == true {

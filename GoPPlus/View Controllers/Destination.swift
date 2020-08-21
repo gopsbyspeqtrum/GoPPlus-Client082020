@@ -33,7 +33,7 @@ class Destination: UIViewController, GMSMapViewDelegate, WKUIDelegate  {
         self.webview.uiDelegate = self
         self.webview.isHidden = true
         self.endAddress = self.startAddress
-        
+         print("viewdidload")
         self.endLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenSearchTap(_:))))
         self.startLabel.text = self.startAddress.address
         self.endLabel.text = self.endAddress.address

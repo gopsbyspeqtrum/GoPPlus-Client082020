@@ -50,12 +50,14 @@ class Start: UIViewController {
         } else if segue.identifier == "containerOnBoard" {
             print("onBoard segue")
             self.OnBoardController = segue.destination as? OnBoard
+            print("viewdidload")
         } else if segue.identifier == "containerOnWait" {
             print("onWait segue")
             self.OnWaitController = segue.destination as? Wait
         } else {
             self.toggleSidebar(self)
         }
+        print("viewdidload2")
     }
     
     @IBAction func toggleSidebar(_ sender: Any) {
@@ -109,6 +111,7 @@ class Start: UIViewController {
     }
     
     func loadUserImage() {
+        print("viewdidload2")
         let fbid = Constants.getStringStored(key: Constants.DBKeys.user + "fbid")
         let usid = Constants.getIntStored(key: Constants.DBKeys.user + "id")
         var profileImageUrl:String = "";
@@ -266,7 +269,7 @@ class Start: UIViewController {
                 
                 if result["logout"] != nil {
                     Constants.deleteStored()
-                    self.performSegue(withIdentifier: "unwinStartView", sender: self)
+                    //self.performSegue(withIdentifier: "unwinStartView", sender: self)
                     return
                 }
                 

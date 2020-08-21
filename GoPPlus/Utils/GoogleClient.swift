@@ -66,7 +66,7 @@ class GoogleClient: GoogleClientRequest {
                 completionHandler(GooglePlacesResponse(results: []))
             } else {
                 do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
+                    let jsonData = try JSONSerialization.data(withJSONObject: result as Any, options: [])
                     let googleresults =  try JSONDecoder().decode(GooglePlaces.self, from: jsonData)
                     
                     completionHandler(GooglePlacesResponse(results: [googleresults]))
@@ -89,7 +89,7 @@ class GoogleClient: GoogleClientRequest {
                 completionHandler(GooglePlaceId(result: GooglePlaceStruct(geometry: GoogleGeometry(location: GoogleLocation(lat: 0, lng: 0))), status: "NO"))
             } else {
                 do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
+                    let jsonData = try JSONSerialization.data(withJSONObject: result as Any, options: [])
                     let place =  try JSONDecoder().decode(GooglePlaceId.self, from: jsonData)
                     
                     completionHandler(place)
