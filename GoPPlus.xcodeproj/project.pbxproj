@@ -892,7 +892,7 @@
 				CODE_SIGN_ENTITLEMENTS = GoPPlus/GoPPlus.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 95;
+				CURRENT_PROJECT_VERSION = 91;
 				DEVELOPMENT_TEAM = 426NG3E4Q3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -906,7 +906,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = b1.0;
+				MARKETING_VERSION = 91;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pplus.go;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -923,7 +923,7 @@
 				CODE_SIGN_ENTITLEMENTS = GoPPlus/GoPPlusRelease.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 95;
+				CURRENT_PROJECT_VERSION = 91;
 				DEVELOPMENT_TEAM = 426NG3E4Q3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -937,7 +937,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = b1.0;
+				MARKETING_VERSION = 91;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pplus.go;
 				PRODUCT_NAME = "$(TARGET_NAME)";

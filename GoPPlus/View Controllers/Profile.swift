@@ -262,6 +262,8 @@ class Profile: UIViewController, UITextFieldDelegate, UIImagePickerControllerDel
         
         switch (photoAuthorizationStatus) {
             
+        case .limited:
+            print("User none")
                 case .authorized:
                     print("Access is granted by user")
                 case .notDetermined:
