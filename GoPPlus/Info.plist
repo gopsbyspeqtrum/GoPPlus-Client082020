@@ -76,6 +76,8 @@
 	<string>GoPPlus necesita tu ubicación para brindarte un mejor servicio</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>GoPPlus necesita acceso a tu librería para actualizar tu imagen de perfil</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>GoPPlus necesita acceso a tu cámara y documentos para guardar tu foto de perfil.</string>
 	<key>UIBackgroundModes</key>
 	<array/>
 	<key>UILaunchStoryboardName</key>

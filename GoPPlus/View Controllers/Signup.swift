@@ -307,22 +307,24 @@ class Signup: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func doFacebookLogin(_ sender: Any) {
-       let loginManager = FBSDKLoginManager()
+        let loginManager = LoginManager()
         
-        loginManager.logIn(withReadPermissions: ["public_profile", "email"], from: self) { (result, error) in
+        loginManager.logIn(permissions: ["public_profile", "email"], from: self )
+       {
+        loginresult, error in
             
             if error != nil {
                 Constants.showMessage(msg: "Facebook Login. Intenta nuevamente")
                 return
             }
             
-            if let FBResult = result {
+            if let FBResult = loginresult {
                 if FBResult.isCancelled {
                     Constants.showMessage(msg: "Facebook Login cancelado. Intenta nuevamente")
                     return
                 }
                 
-                let graphRequest:FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields" : "id, email, name, first_name,last_name, birthday"])
+                let graphRequest:GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields" : "id, email, name, first_name,last_name, birthday"])
                
                 graphRequest.start(completionHandler: { (connection, result, error) in
                     

@@ -12,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         GMSServices.provideAPIKey("AIzaSyAnLqd2gzuXQxq_msNZSDAHxn7PTNN7b7Q")
-        FBSDKApplicationDelegate.sharedInstance()?.application(application, didFinishLaunchingWithOptions: launchOptions)
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         //Push Notifications
         if #available(iOS 10.0, *) {
@@ -40,10 +40,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        let appId: String = FBSDKSettings.appID()
+        let appId: String = Settings.appID!
         
         if url.scheme != nil && url.scheme!.hasPrefix("fb\(appId)") && url.host ==  "authorize" {
-            return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, options: options)
+            return ApplicationDelegate.shared.application(application, open: url, options: options)
         }
         
         return false
