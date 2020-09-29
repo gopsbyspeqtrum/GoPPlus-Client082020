@@ -13,6 +13,7 @@ class Forgot: UIViewController {
     @IBOutlet weak var loading: UIActivityIndicatorView!
     
     override func viewDidLoad() {
+        print("E")
         super.viewDidLoad()
         self.setupToolbar()
         self.loading.stopAnimating()

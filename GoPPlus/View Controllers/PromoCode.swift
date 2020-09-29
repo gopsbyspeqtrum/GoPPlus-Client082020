@@ -14,6 +14,8 @@ class PromoCode: UIViewController, UITextFieldDelegate {
     var prevTypeCode:Constants.PromoTypeCode = Constants.PromoTypeCode(id: "", typecode: "Ninguno", type: "")
     
     override func viewDidLoad() {
+        print("J")
+
         super.viewDidLoad()
         self.loading.stopAnimating()
         self.setupToolbar()

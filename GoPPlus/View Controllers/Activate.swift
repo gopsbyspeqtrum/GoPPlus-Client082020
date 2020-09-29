@@ -10,7 +10,7 @@ class Activate: UIViewController {
     }
     
     struct ActivateStruct:Codable {
-        let id:Int
+        let id:Int 
         let token:String
     }
     
@@ -20,6 +20,8 @@ class Activate: UIViewController {
     var fromLogin:Bool = false
     
     override func viewDidLoad() {
+        print("A")
+
         super.viewDidLoad()
         self.setupToolbar()
         self.loading.stopAnimating()

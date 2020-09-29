@@ -16,6 +16,7 @@ class Profile: UIViewController, UITextFieldDelegate, UIImagePickerControllerDel
     var keyboardHeight: CGFloat = 0
     
     override func viewDidLoad() {
+        print("I")
         super.viewDidLoad()
         self.birthdayField.delegate = self
         self.profileImage.isUserInteractionEnabled = true

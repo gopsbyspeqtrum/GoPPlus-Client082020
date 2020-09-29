@@ -15,6 +15,7 @@ class PasswordReplace: UIViewController {
     @IBOutlet weak var loading: UIActivityIndicatorView!
     
     override func viewDidLoad() {
+        print("H")
         super.viewDidLoad()
         self.loading.stopAnimating()
         self.setupToolbar()

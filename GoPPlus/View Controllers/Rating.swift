@@ -30,6 +30,7 @@ class Rating: UIViewController {
     var unratedService:Constants.UnratedService = Constants.UnratedService(id: 0, conductor: 0, nombre_conductor: "", fecha: "", precio: 0)
     
     override func viewDidLoad() {
+        print("K")
         super.viewDidLoad()
         self.setupToolbar()
         self.price.text = String(format: "$%.2f", self.unratedService.precio)

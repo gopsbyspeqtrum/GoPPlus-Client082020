@@ -4,7 +4,7 @@ import Foundation
 
 class Constants: NSObject {
     
-    static let APIKEY:String = "AIzaSyAnLqd2gzuXQxq_msNZSDAHxn7PTNN7b7Q" 
+    static let APIKEY:String = "AIzaSyAnLqd2gzuXQxq_msNZSDAHxn7PTNN7b7Q"
     static let SECRET:String = "g0sp3qtrUm_"
     
     struct APIEndpoint {
@@ -265,6 +265,8 @@ class Constants: NSObject {
         return isReachable && (!needsConnection || canConnectWithoutUserInteraction)
     }
     
+    
+    
     static func getAutocomplete(parameters: [String: String]?, completion: @escaping ([String:Any]?) -> ()) {
         let urlComponent = NSURLComponents(string: "https://maps.googleapis.com/maps/api/place/autocomplete/json")!
         
@@ -275,7 +277,7 @@ class Constants: NSObject {
                 }
             }
         }
-        
+        print(urlComponent.url!)
         var request = URLRequest(url: urlComponent.url!)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -291,11 +293,13 @@ class Constants: NSObject {
             }
             
             guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+            //guard let response = response as? HTTPURLResponse, 1 == 1 else {
+                
                 print("server error")
                 completion(nil)
                 return
             }
-            
+            print(response)
             guard let content = data else {
                 completion(nil)
                 return
@@ -349,6 +353,7 @@ class Constants: NSObject {
             }
             
             if let json = (((try? JSONSerialization.jsonObject(with: content, options: []) as? [String: Any]) as [String : Any]??)) {
+                print(json!)
                 completion(json)
             } else {
                 completion(nil)

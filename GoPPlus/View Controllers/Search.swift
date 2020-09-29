@@ -17,9 +17,10 @@ class Search: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     var location:Location = Location(latitude: 0.0, longitude: 0.0, address: "")
-    var searchResult:GooglePlaces = GooglePlaces(predictions: [], status: "NO")
+    var searchResult:GooglePlaces = GooglePlaces(status: "NO", predictions: [])
     
     override func viewDidLoad() {
+        print("L")
         super.viewDidLoad()
         self.setupToolbar()
         self.table.dataSource = self
@@ -70,13 +71,13 @@ class Search: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.loading.stopAnimating()
                 
                 if response.results.count > 0 {
-                    self.searchResult = response.results[0]
+                    let searchRes:GooglePlaces = response.results[0]
+                    self.searchResult = searchRes
                     
-                    for pred in self.searchResult.predictions {
-                        self.data.append(Location(latitude: 0, longitude: 0, address: pred.structured_formatting.main_text))
+                    for p in self.searchResult.predictions  {
+                        self.data.append(Location(latitude: 0,longitude: 0, address: p.structured_formatting.main_text))
                         self.table.reloadData()
                     }
-                    
                     
                 } else {
                     Constants.showMessage(msg: "No se encontraron coincidencias")

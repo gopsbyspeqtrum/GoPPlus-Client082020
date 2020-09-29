@@ -5,6 +5,8 @@ class Share: UIViewController {
     @IBOutlet weak var codeLabel: UILabel!
     
     override func viewDidLoad() {
+        print("M")
+
         super.viewDidLoad()
         self.codeLabel.text = Constants.getStringStored(key: Constants.DBKeys.user + "codigo")
     }

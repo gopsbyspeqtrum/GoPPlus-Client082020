@@ -39,6 +39,8 @@ class Chat: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var chatMessages:[ChatMessages] = []
     
     override func viewDidLoad() {
+        print("B")
+
         super.viewDidLoad()
         self.table.delegate = self
         self.table.dataSource = self

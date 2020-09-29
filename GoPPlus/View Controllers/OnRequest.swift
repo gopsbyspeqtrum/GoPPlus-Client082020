@@ -34,19 +34,23 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("onreq")
         self.showLoading()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        
         self.setTouchListeners()
         self.hideLoading()
-    }
+        print("onreqa")
+}
     
     override func viewWillDisappear(_ animated: Bool) {
+        print("onreq1")
         self.loopNearVehicles = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("onreq2")
+
         self.loopNearVehicles = true
         
         if mapCreated == false {
@@ -57,19 +61,27 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
 
     private func setTouchListeners() {
+        print("onreq3")
+
         self.centerUserLocation.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleCenterTap(_:))))
         self.streetLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenSearchTap(_:))))
     }
     
     @objc func handleCenterTap(_ sender: UITapGestureRecognizer) {
+        print("onreq4")
+
         getUserLocation()
     }
     
     @objc func handleOpenSearchTap(_ sender: UITapGestureRecognizer) {
+        print("onreq5")
+
         performSegue(withIdentifier: "addressSegue", sender: self)
     }
     
     @IBAction func openDestination(_ sender: Any) {
+        print("onreq6")
+
         if self.typeSelected.id != 0 {
             if self.latitude != 0 && self.longitude != 0 {
                 performSegue(withIdentifier: "openDestinationSegue", sender: self)
@@ -82,6 +94,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
 
     private func loadMap() {
+        print("onreq7")
+
         self.map = GMSMapView.map(withFrame: self.mapContainer.bounds, camera: GMSCameraPosition.camera(withLatitude: 21.122039, longitude: -101.667102, zoom: zoom))
         self.map.autoresizingMask = [.flexibleWidth , .flexibleHeight]
         self.map.delegate = self
@@ -89,6 +103,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        print("onreq8")
+
         self.latitude =  mapView.projection.coordinate(for: mapView.center).latitude
         self.longitude = mapView.projection.coordinate(for: mapView.center).longitude
         
@@ -98,6 +114,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     private func getUserLocation() {
+        print("onreq9")
+
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 0.0
@@ -116,6 +134,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print("onreq10")
+
         if (status == CLAuthorizationStatus.denied) {
             Constants.showMessage(msg: "Habilita los servicios de ubicación")
         } else if (status == CLAuthorizationStatus.authorizedAlways || status == CLAuthorizationStatus.authorizedWhenInUse) {
@@ -124,6 +144,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("onreq11")
+
         if let userLocation = locations.last {
             manager.stopUpdatingLocation()
             
@@ -136,6 +158,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func getLocationAddress(location:CLLocationCoordinate2D) {
+        print("onreq12")
+
         
         if !Constants.isConnectedToNetwork() {
             Constants.showMessage(msg: "No tienes conexión a internet")
@@ -170,6 +194,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     @IBAction func unwindStartAddress(_ sender: UIStoryboardSegue) {
+        print("onreq13")
+
         if let source = sender.source as? Search {
             if !source.location.address.isEmpty {
                 self.doApplyMapChange = false
@@ -184,6 +210,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     @IBAction func unwindDestinationAddress(_ sender: UIStoryboardSegue) {
+        print("onreq14")
+
         if let source = sender.source as? Destination {
             if source.serviceCreated {
                 self.showLoading()
@@ -192,12 +220,16 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     @IBAction func unwindFromRating(_ sender: UIStoryboardSegue) {
+        print("onreq15")
+
         if sender.source is Rating {
             self.ratingOpened = false
         }
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        print("onreq16")
+
         if identifier == "openDestinationSegue" {
             if !self.validStreet {
                 Constants.showMessage(msg: "Elige una dirección válida")
@@ -209,6 +241,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("onreq17")
+
         
         if Constants.isConnectedToNetwork() == false {
             Constants.showMessage(msg: "No tienes conexión a internet")
@@ -239,6 +273,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     @IBAction func doSwipeContainer(_ sender: Any) {
+        print("onreq18")
+
         if doSwipeContainerHidden {
             self.swipeHeight100Constraint.isActive = false
             self.swipeHeightLargeConstraint.isActive = true
@@ -257,6 +293,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     private func displayVehiclesByType() {
+        print("onreq19")
+
         if let data = UserDefaults.standard.value(forKey:"vehiclesByType") as? Data {
             guard let vehiclesByType = try? PropertyListDecoder().decode([Constants.VehicleByType].self, from: data) else {
                 print("Error getting vehiclesByType")
@@ -284,6 +322,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("onreq20")
+
         for cell in self.collectionView.visibleCells as! [VehicleCell] {
             cell.setImage(selected: false)
         }
@@ -296,10 +336,14 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("onreq21")
+
         return self.vehiclesArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print("onreq22")
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VehicleCell", for: indexPath) as! VehicleCell
         let vehicle = self.vehiclesArray[indexPath.row] as Constants.VehicleByType
         
@@ -321,6 +365,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func doLoopNearVehicles() {
+        print("onreq23")
+
         if (self.loopNearVehicles) {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(10) ) {
                 self.displayNearVehicles()
@@ -330,6 +376,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func displayNearVehicles() {
+        print("onreq24")
+
         if self.typeSelected.id != 0 && self.latitude != 0 && self.longitude != 0 {
             let type = String(self.typeSelected.id)
             let lat  = String(format:"%f", self.latitude)
@@ -374,6 +422,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     
     
     func calculateTime() {
+        print("onreq25")
+
         if self.nearVehicles.count > 0 {
             let firstVehicle = self.nearVehicles[0]
             var minutes:Double = 0
@@ -437,11 +487,15 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     public func showLoading() {
+        print("onreq26")
+
         self.loading.startAnimating()
         self.view.isUserInteractionEnabled = false
     }
     
     public func hideLoading() {
+        print("onreq27")
+
         DispatchQueue.main.async {
             self.loading.stopAnimating()
             self.view.isUserInteractionEnabled = true
@@ -449,6 +503,8 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     public func newUnratedService(service: Constants.UnratedService) {
+        print("onreq28")
+
         DispatchQueue.main.async {
             if service.id != 0 {
                 if self.ratingOpened == false {

@@ -9,24 +9,48 @@
 import Foundation
 import CoreLocation
 
-
 struct GooglePlacesResponse : Codable {
     let results: [GooglePlaces]
 }
 
 struct GooglePlaces : Codable {
-    let predictions: [GooglePrediction]
     let status: String
+    let predictions: [GooglePredictions]
 }
 
-struct GooglePrediction : Codable {
-    let id : String
-    let place_id: String
-    let structured_formatting: structuredFormatting
-    
-    struct structuredFormatting:Codable {
-        let main_text:String
-    }
+struct GooglePredictions : Codable {
+    let description : String
+    let distance_meters : Int
+    let place_id : String
+    let terms : [gterms]
+    let types : [gtypes]
+    let matched_substrings : [gmatchedSubstrings]
+    let structured_formatting : structuredFormatting
+}
+
+struct gterms: Codable {
+    let value : String
+    let offset : Int
+}
+
+struct gtypes: Codable {
+    let types : String
+}
+
+struct gmatchedSubstrings : Codable {
+    let offset : Int
+    let length : Int
+}
+
+struct structuredFormatting: Codable {
+    let main_text : String
+    let main_text_matched_substrings : mainTextMatchedSubstrings
+    let secondary_text : String
+}
+
+struct mainTextMatchedSubstrings : Codable {
+    let offset : Int
+    let length : Int
 }
 
 struct GooglePlaceId: Codable {
@@ -47,8 +71,7 @@ struct GoogleLocation: Codable {
     let lng: Double
 }
 
-
-protocol GoogleClientRequest {
+protocol GoogleClientRequest  {
 
     func getGooglePlacesData(forKeyword keyword: String, using completionHandler: @escaping (GooglePlacesResponse) -> ())
     func getGooglePlaceId(forPlaceId placeid: String, using completionHandler: @escaping (GooglePlaceId) -> ())
@@ -68,11 +91,14 @@ class GoogleClient: GoogleClientRequest {
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: result as Any, options: [])
                     let googleresults =  try JSONDecoder().decode(GooglePlaces.self, from: jsonData)
-                    
+                    print("google")
+                    print(googleresults)
                     completionHandler(GooglePlacesResponse(results: [googleresults]))
                     return
                 } catch {
-                   completionHandler(GooglePlacesResponse(results: []))
+                    completionHandler(GooglePlacesResponse(results: []))
+                    print("Google")
+                    print(error)
                 }
             }
         }

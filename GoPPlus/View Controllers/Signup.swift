@@ -1,5 +1,5 @@
 import UIKit
-import FBSDKCoreKit
+//import FBSDKCoreKit
 import FBSDKLoginKit
 
 class Signup: UIViewController, UITextFieldDelegate {
@@ -40,6 +40,8 @@ class Signup: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var openTerms: UILabel!
     
     override func viewDidLoad() {
+        print("N")
+
         super.viewDidLoad()
         self.getPublicConfig()
         self.birthdayField.delegate = self

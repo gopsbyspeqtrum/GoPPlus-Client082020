@@ -28,27 +28,41 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
     private var carMarker:GMSMarker = GMSMarker(position: CLLocationCoordinate2DMake(0, 0))
     private var mapRoute:GMSPolyline?
     var mapLoaded:Bool = false
+    let webConfiguration = WKWebViewConfiguration()
     
     var chatController:Chat?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("onboard")
+        //
+        self.webview = WKWebView()  //frame: .zero, configuration: webConfiguration)
         self.webview.uiDelegate = self
+        //
+        print("onboard2")
         self.loading.stopAnimating()
+        print("onboard3")
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        print("onboardA")
+
         super.viewWillDisappear(true)
-        
+        self.webview = WKWebView() 
         self.webview.isHidden = true
         self.view.sendSubviewToBack(self.webview)
         self.loading.stopAnimating()
     }
 
     @IBAction func centerMap(_ sender: Any) {
+        print("onboard4")
         if let data = self.serviceData {
             self.map.animate(to: GMSCameraPosition.camera(withLatitude: data.lat!, longitude: data.lng!, zoom: self.zoom))
+            print("onboard4a")
+
         }
+        print("onboard4b")
     }
     
     @IBAction func openChat(_ sender: Any) {
@@ -68,6 +82,8 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("onboardB")
+
         super.viewWillAppear(true)
         if mapLoaded == false {
             setMap()
@@ -90,6 +106,8 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
     }
     
     private func setMap() {
+        print("onboard5")
+
         self.map = GMSMapView.map(withFrame: self.mapContainer.bounds, camera: GMSCameraPosition.camera(withLatitude: 21.122039, longitude: -101.667102, zoom: self.zoom))
         self.map.autoresizingMask = [.flexibleWidth , .flexibleHeight]
         self.map.delegate = self
@@ -99,9 +117,12 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
     public func setServiceData(data: Constants.ServiceData) {
         self.serviceData = data
         self.updateUI()
+
     }
     
     private func updateUI() {
+        print("onboardC")
+
         DispatchQueue.main.async {
             if let data = self.serviceData {
                 self.map.clear()
@@ -166,13 +187,14 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
                 self.getRoute()
             }
         }
+        print("onboardCa")
     }
     
     func getQueryStringParameter(url: String, param: String) -> String? {
         guard let url = URLComponents(string: url) else { return nil }
         return url.queryItems?.first(where: { $0.name == param })?.value
     }
-    
+
     func webView(_ webView: WKWebView, shouldStartLoadWith request: URLRequest, navigationType: WKNavigationType.Type) -> Bool {
         if let url_ = request.url?.absoluteString {
             
@@ -199,7 +221,8 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
     }
     
     func getRoute() {
-        
+        print("onboardD")
+
         if let data = self.serviceData {
             let coordinate1 = CLLocation(latitude: data.lat!, longitude: data.lng!)
             var coordinate2 = CLLocation(latitude: data.lat_origen, longitude: data.lng_origen)

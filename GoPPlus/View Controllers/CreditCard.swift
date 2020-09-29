@@ -24,6 +24,8 @@ class CreditCard: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     override func viewDidLoad() {
+        print("C")
+
         super.viewDidLoad()
         self.setupToolbar()
         
@@ -31,6 +33,8 @@ class CreditCard: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         self.monthNumber.delegate = self
         self.yearNumber.delegate = self
         self.cvvNumber.delegate = self
+        let webConfiguration = WKWebViewConfiguration()
+        self.webview = WKWebView(frame: .zero, configuration: webConfiguration)
         self.webview.uiDelegate = self
         self.table.delegate = self
         self.table.dataSource = self

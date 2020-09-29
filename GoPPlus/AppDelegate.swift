@@ -1,6 +1,6 @@
 import UIKit
 import GoogleMaps
-import FBSDKLoginKit
+import FBSDKCoreKit
 import UserNotifications
 
 

@@ -12,7 +12,7 @@ class Destination: UIViewController, GMSMapViewDelegate, WKUIDelegate  {
     @IBOutlet weak var fareLabel: UILabel!
     @IBOutlet weak var webview: WKWebView!
     
-    
+     
     private var map = GMSMapView()
     let zoom:Float = 16.0
     var startAddress:Constants.SDAddress = Constants.SDAddress(latitude: 0, longitude: 0, address: "")
@@ -26,21 +26,22 @@ class Destination: UIViewController, GMSMapViewDelegate, WKUIDelegate  {
     var creditcard:Constants.CreditCardItem = Constants.CreditCardItem(Id: 0, Numero: "Ninguna")
     var serviceCreated:Bool = false
     var mapCreated:Bool = false
+    let webConfiguration = WKWebViewConfiguration()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.serviceCreated = false
+        self.webview = WKWebView() //frame: .zero, configuration: webConfiguration)
         self.webview.uiDelegate = self
         self.webview.isHidden = true
         self.endAddress = self.startAddress
-         print("viewdidload")
         self.endLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenSearchTap(_:))))
         self.startLabel.text = self.startAddress.address
         self.endLabel.text = self.endAddress.address
-        
         self.startMarker.position = CLLocationCoordinate2DMake(self.startAddress.latitude, self.startAddress.longitude)
         self.startMarker.icon = UIImage(named: "s_pin")
     }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -113,6 +114,7 @@ class Destination: UIViewController, GMSMapViewDelegate, WKUIDelegate  {
     }
     
     @IBAction func doStartPayworks(_ sender: Any) {
+        
         if self.creditcard.Id == 0 {
             Constants.showMessage(msg: "Selecciona un método de pago para continuar")
             return
@@ -175,8 +177,9 @@ class Destination: UIViewController, GMSMapViewDelegate, WKUIDelegate  {
         url_ += "&monto=" + String(format: "%.0f", preauthFare)
         url_ += "&km=" + String(format: "%.2f", self.selectedKM)
         
-        
+        self.webview = WKWebView()
         self.webview.isHidden = false
+
         self.view.bringSubviewToFront(self.webview)
         
         var request = URLRequest(url: URL(string: url_)!)
@@ -319,6 +322,7 @@ class Destination: UIViewController, GMSMapViewDelegate, WKUIDelegate  {
     }
     
     func webView(_ webView: WKWebView, shouldStartLoadWith request: URLRequest, navigationType: WKNavigationType.Type) -> Bool {
+        self.webview = WKWebView() 
         if let url_ = request.url?.absoluteString {
             if url_.range(of: "preauth-service-ok") != nil {
                 self.serviceCreated = true

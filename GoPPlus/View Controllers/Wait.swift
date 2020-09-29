@@ -7,14 +7,20 @@ class Wait: UIViewController, WKUIDelegate {
     var cancelURL = Constants.APIEndpoint.payment + "postauth-service-start?act=CANCEL&id="
     public var confirmationVisible:Bool = false
     public var statusLabelValue:String = ""
+    let webConfiguration = WKWebViewConfiguration()
+
     
     let alert:UIAlertController = UIAlertController(title: "GoPPlus", message: "No se encontraron unidades cercanas, ¿Desea seguir esperando?", preferredStyle: UIAlertController.Style.alert)
     
     @IBOutlet weak var webview: WKWebView!
     @IBOutlet weak var statusLabel: UILabel!
     
+
+    
     override func viewDidLoad() {
+        print("wait")
         super.viewDidLoad()
+        self.webview = WKWebView(frame: .zero, configuration: webConfiguration)
         self.webview.uiDelegate = self
         self.confirmationVisible = false
         self.statusLabel.text = "Espere un momento"
@@ -30,16 +36,19 @@ class Wait: UIViewController, WKUIDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("wait2")
         super.viewWillAppear(true)
         self.statusLabel.text = "Espere un momento"
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        print("wait3")
         super.viewWillDisappear(true)
         self.statusLabel.text = "Espere un momento"
     }
     
     public func setServiceData(data: Constants.ServiceData) {
+        print("wait4")
         self.serviceData = data
         
         DispatchQueue.main.async {
@@ -59,6 +68,7 @@ class Wait: UIViewController, WKUIDelegate {
     }
     
     func openConfirmation() {
+        print("wait5")
         DispatchQueue.main.async {
             self.confirmationVisible = true
             self.present(self.alert, animated: true, completion: nil)
@@ -66,6 +76,7 @@ class Wait: UIViewController, WKUIDelegate {
     }
     
     public func hideAlert() {
+        print("wait6")
         DispatchQueue.main.async {
             if self.confirmationVisible {
                 self.alert.dismiss(animated: true, completion: nil)
@@ -78,6 +89,7 @@ class Wait: UIViewController, WKUIDelegate {
         if let id = self.serviceData?.id {
             self.statusLabel.text = "Cancelando servicio"
             let url_ =  self.cancelURL + String(id)
+            self.webview = WKWebView(frame: .zero, configuration: webConfiguration)
             self.webview.load(URLRequest(url: URL(string: url_)!))
             self.webview.isHidden = false
             self.view.bringSubviewToFront(self.webview)
@@ -90,6 +102,7 @@ class Wait: UIViewController, WKUIDelegate {
     }
     
     func webView(_ webView: WKWebView, shouldStartLoadWith request: URLRequest, navigationType: WKNavigationType.Type) -> Bool {
+        self.webview = WKWebView() 
         if let url_ = request.url?.absoluteString {
             
             if url_.range(of: "postauth-service-end") != nil {

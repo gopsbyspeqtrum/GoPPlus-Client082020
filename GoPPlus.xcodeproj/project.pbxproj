@@ -29,7 +29,6 @@
 		7CE86D04217D3F1A00382306 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE86D03217D3F1A00382306 /* UIKit.framework */; };
 		7CE86D05217D432C00382306 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7CE86CE4217D3E7600382306 /* GoogleMaps.bundle */; };
 		7CED0D2621BDDC47003361BE /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED0D2521BDDC47003361BE /* CardCell.swift */; };
-		E1634B2C24EE172900A1CCFD /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE86CE0217D3E6200382306 /* GoogleMaps.framework */; };
 		E1634B2E24EE173B00A1CCFD /* GoogleMapsBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE86CDE217D3E4400382306 /* GoogleMapsBase.framework */; };
 		E1634B3024EE174C00A1CCFD /* GoogleMapsCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE86CE2217D3E6E00382306 /* GoogleMapsCore.framework */; };
 		E207B68B2135AF7C007F26F9 /* Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E207B68A2135AF7C007F26F9 /* Signup.swift */; };
@@ -129,8 +128,6 @@
 		E2BEC09F2134D7DA00AB6D3D /* Wait.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BEC09E2134D7DA00AB6D3D /* Wait.swift */; };
 		F5157995251BDE510091F1AA /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5157994251BDE510091F1AA /* Metal.framework */; };
 		F5157997251BDE600091F1AA /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5157996251BDE600091F1AA /* MetalKit.framework */; };
-		F515799C251C4F120091F1AA /* GoogleMapsCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F515799B251C4F120091F1AA /* GoogleMapsCore.framework */; };
-		F515799E251C4F1D0091F1AA /* GoogleMapsBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F515799D251C4F1D0091F1AA /* GoogleMapsBase.framework */; };
 		F51579A0251C4F2C0091F1AA /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F515799F251C4F2C0091F1AA /* GoogleMaps.framework */; };
 		F51579A8251C55720091F1AA /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = F51579A7251C55720091F1AA /* FacebookCore */; };
 		F51579AA251C55720091F1AA /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = F51579A9251C55720091F1AA /* FacebookLogin */; };
@@ -287,7 +284,6 @@
 				7CE86CFA217D3EF600382306 /* libc++.tbd in Frameworks */,
 				F5157997251BDE600091F1AA /* MetalKit.framework in Frameworks */,
 				7CE86CF8217D3EEF00382306 /* ImageIO.framework in Frameworks */,
-				F515799C251C4F120091F1AA /* GoogleMapsCore.framework in Frameworks */,
 				E1634B2E24EE173B00A1CCFD /* GoogleMapsBase.framework in Frameworks */,
 				7CE86CF4217D3EE000382306 /* CoreText.framework in Frameworks */,
 				7CE86CF2217D3ED900382306 /* CoreTelephony.framework in Frameworks */,
@@ -297,8 +293,6 @@
 				F51579AA251C55720091F1AA /* FacebookLogin in Frameworks */,
 				7CE86CEC217D3EC400382306 /* CoreGraphics.framework in Frameworks */,
 				7CE86CEA217D3EBD00382306 /* CoreData.framework in Frameworks */,
-				F515799E251C4F1D0091F1AA /* GoogleMapsBase.framework in Frameworks */,
-				E1634B2C24EE172900A1CCFD /* GoogleMaps.framework in Frameworks */,
 				7CE86CE8217D3EB600382306 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -788,7 +782,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 95;
+				CURRENT_PROJECT_VERSION = 97;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 426NG3E4Q3;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -809,7 +803,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 95;
+				MARKETING_VERSION = 97;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -855,7 +849,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 95;
+				CURRENT_PROJECT_VERSION = 97;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 426NG3E4Q3;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -870,7 +864,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 95;
+				MARKETING_VERSION = 97;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
@@ -888,7 +882,7 @@
 				CODE_SIGN_ENTITLEMENTS = GoPPlus/GoPPlus.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 95;
+				CURRENT_PROJECT_VERSION = 97;
 				DEVELOPMENT_TEAM = 426NG3E4Q3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -902,7 +896,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 95;
+				MARKETING_VERSION = 97;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pplus.go;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -919,7 +913,7 @@
 				CODE_SIGN_ENTITLEMENTS = GoPPlus/GoPPlusRelease.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 95;
+				CURRENT_PROJECT_VERSION = 97;
 				DEVELOPMENT_TEAM = 426NG3E4Q3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -933,7 +927,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 95;
+				MARKETING_VERSION = 97;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pplus.go;
 				PRODUCT_NAME = "$(TARGET_NAME)";

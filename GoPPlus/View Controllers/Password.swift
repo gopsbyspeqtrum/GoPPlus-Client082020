@@ -8,6 +8,8 @@ class Password: UIViewController {
     @IBOutlet weak var loading: UIActivityIndicatorView!
     
     override func viewDidLoad() {
+        print("G")
+
         super.viewDidLoad()
         
         self.loading.stopAnimating()
