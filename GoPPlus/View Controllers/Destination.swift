@@ -2,7 +2,7 @@ import UIKit
 import GoogleMaps
 import WebKit
 
-class Destination: UIViewController, GMSMapViewDelegate, WKUIDelegate  {
+class Destination: UIViewController, GMSMapViewDelegate, WKNavigationDelegate{
 
     @IBOutlet weak var startLabel: UILabel!
     @IBOutlet weak var endLabel: UILabel!
@@ -10,7 +10,7 @@ class Destination: UIViewController, GMSMapViewDelegate, WKUIDelegate  {
     @IBOutlet weak var cardLabel: UILabel!
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var fareLabel: UILabel!
-    @IBOutlet weak var webview: WKWebView!
+    @IBOutlet weak var webview: WKWebView?
     
      
     private var map = GMSMapView()
@@ -26,14 +26,12 @@ class Destination: UIViewController, GMSMapViewDelegate, WKUIDelegate  {
     var creditcard:Constants.CreditCardItem = Constants.CreditCardItem(Id: 0, Numero: "Ninguna")
     var serviceCreated:Bool = false
     var mapCreated:Bool = false
-    let webConfiguration = WKWebViewConfiguration()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.serviceCreated = false
-        self.webview = WKWebView() //frame: .zero, configuration: webConfiguration)
-        self.webview.uiDelegate = self
-        self.webview.isHidden = true
+        self.webview?.navigationDelegate = self
+        self.webview?.isHidden = true
         self.endAddress = self.startAddress
         self.endLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenSearchTap(_:))))
         self.startLabel.text = self.startAddress.address
@@ -177,17 +175,16 @@ class Destination: UIViewController, GMSMapViewDelegate, WKUIDelegate  {
         url_ += "&monto=" + String(format: "%.0f", preauthFare)
         url_ += "&km=" + String(format: "%.2f", self.selectedKM)
         
-        self.webview = WKWebView()
-        self.webview.isHidden = false
+        self.webview?.isHidden = false
 
-        self.view.bringSubviewToFront(self.webview)
+        self.view.bringSubviewToFront(webview!)
         
         var request = URLRequest(url: URL(string: url_)!)
         
         request.addValue(Constants.getHeaderValue(key: "appid"), forHTTPHeaderField:"appid")
         request.addValue(Constants.toEncrypt(text: Constants.getHeaderValue(key: "user.id")), forHTTPHeaderField:"userid")
         
-        self.webview.load(request)
+        webview?.load(request)
     }
     
     @IBAction func openCreditCard(_ sender: Any) {
@@ -321,21 +318,21 @@ class Destination: UIViewController, GMSMapViewDelegate, WKUIDelegate  {
         return url.queryItems?.first(where: { $0.name == param })?.value
     }
     
-    func webView(_ webView: WKWebView, shouldStartLoadWith request: URLRequest, navigationType: WKNavigationType.Type) -> Bool {
-        self.webview = WKWebView() 
-        if let url_ = request.url?.absoluteString {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        if let url_ = navigationResponse.response.url?.absoluteString {
             if url_.range(of: "preauth-service-ok") != nil {
                 self.serviceCreated = true
                 performSegue(withIdentifier: "unwindDestinationAddress", sender: self)
+                
             }
             
             if url_.range(of: "preauth-service-error") != nil {
-                self.webview.isHidden = true
-                self.view.sendSubviewToBack(self.webview)
+                webView.isHidden = true
+                self.view.sendSubviewToBack(webView)
                 self.serviceCreated = false
                 
                 DispatchQueue.main.async {
-                    if let errorMessage = self.getQueryStringParameter(url: request.url?.absoluteString ?? "", param: "e") {
+                    if let errorMessage = self.getQueryStringParameter(url: navigationResponse.response.url?.absoluteString ?? "", param: "e") {
                         Constants.showMessage(msg: errorMessage)
                     } else {
                         Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
@@ -343,7 +340,32 @@ class Destination: UIViewController, GMSMapViewDelegate, WKUIDelegate  {
                 }
             }
         }
-        
-        return true
+        decisionHandler(.allow)
     }
-}
+    }
+    
+//    func webView(_ webView: WKWebView, shouldStartLoadWith request: URLRequest, navigationType: WKNavigationType.Type) -> Bool {
+//        if let url_ = request.url?.absoluteString {
+//            if url_.range(of: "preauth-service-ok") != nil {
+//                self.serviceCreated = true
+//                performSegue(withIdentifier: "unwindDestinationAddress", sender: self)
+//            }
+//
+//            if url_.range(of: "preauth-service-error") != nil {
+//                self.webview.isHidden = true
+//                self.view.sendSubviewToBack(self.webview)
+//                self.serviceCreated = false
+//
+//                DispatchQueue.main.async {
+//                    if let errorMessage = self.getQueryStringParameter(url: request.url?.absoluteString ?? "", param: "e") {
+//                        Constants.showMessage(msg: errorMessage)
+//                    } else {
+//                        Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
+//                    }
+//                }
+//            }
+//        }
+//
+//        return true
+//    }
+

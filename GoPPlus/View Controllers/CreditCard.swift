@@ -1,14 +1,14 @@
 import UIKit
 import WebKit
 
-class CreditCard: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, WKUIDelegate {
+class CreditCard: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, WKNavigationDelegate {
 
     @IBOutlet weak var cardNumber: UITextField!
     @IBOutlet weak var monthNumber: UITextField!
     @IBOutlet weak var yearNumber: UITextField!
     @IBOutlet weak var cvvNumber: UITextField!
     @IBOutlet weak var table: UITableView!
-    @IBOutlet weak var webview: WKWebView!
+    @IBOutlet weak var webview: WKWebView?
     @IBOutlet weak var scrollview: UIScrollView!
     @IBOutlet weak var loading: UIActivityIndicatorView!
     
@@ -24,7 +24,6 @@ class CreditCard: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     override func viewDidLoad() {
-        print("C")
 
         super.viewDidLoad()
         self.setupToolbar()
@@ -33,9 +32,7 @@ class CreditCard: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         self.monthNumber.delegate = self
         self.yearNumber.delegate = self
         self.cvvNumber.delegate = self
-        let webConfiguration = WKWebViewConfiguration()
-        self.webview = WKWebView(frame: .zero, configuration: webConfiguration)
-        self.webview.uiDelegate = self
+       
         self.table.delegate = self
         self.table.dataSource = self
         self.table.estimatedRowHeight = 60.0
@@ -85,7 +82,7 @@ class CreditCard: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     @IBAction func doAddCard(_ sender: Any) {
         self.view.endEditing(true)
-        
+        webview?.navigationDelegate = self
         let number:String = self.cardNumber.text!
         let month:String  = self.monthNumber.text!
         let year:String   = self.yearNumber.text!
@@ -103,7 +100,6 @@ class CreditCard: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         let calendar = Calendar.current
         let currentYear = String(calendar.component(.year, from: date))
         let yearDigits = String(currentYear.suffix(2))
-        
         
         if !Validator.isRequired(text: number) {
             message += "\n" + Validator.replaceMessage(name: numberText, value: number, message: Validator.requiredError)
@@ -150,7 +146,6 @@ class CreditCard: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         if !Validator.isValidCVV(text: sec) {
             message += "\n" + Validator.replaceMessage(name: secText, value: sec, message: Validator.cvvError)
         }
-        
         if message.isEmpty {
             let card = Constants.toEncrypt64(text: number)
             let exp  = Constants.toEncrypt64(text: month + "" + year)
@@ -159,12 +154,12 @@ class CreditCard: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             let url_ = Constants.APIEndpoint.payment + "card-service-start?y=" + id + "&i=" + card + "&f=" + exp + "&a=" + cvv
             
             var request = URLRequest(url: URL(string: url_)!)
-            
+            print(url_)
             request.addValue(Constants.getHeaderValue(key: "appid"), forHTTPHeaderField:"appid")
             request.addValue(Constants.toEncrypt(text: Constants.getHeaderValue(key: "user.id")), forHTTPHeaderField:"userid")
-            
-            self.view.bringSubviewToFront(self.webview)
-            self.webview.load(request)
+            print(request.url!.absoluteString)
+            self.view.bringSubviewToFront(webview!)
+            webview?.load(request)
         } else {
             Constants.showMessage(msg: message)
         }
@@ -333,19 +328,34 @@ class CreditCard: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
     }
     
-    func webView(_ webView: WKWebView, shouldStartLoadWith request: URLRequest, navigationType: WKNavigationType.Type) -> Bool {
-        if let url_ = request.url?.absoluteString {
-
-            if url_.range(of: "card-service-end") != nil || url_.range(of: "card-service-error") != nil {
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2) ) {
-                    self.view.sendSubviewToBack(self.webview)
-                    self.loadCards()
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        if let url_ = navigationResponse.response.url?.absoluteString {
+                    if url_.range(of: "card-service-end") != nil || url_.range(of: "card-service-error") != nil {
+        
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2) ) {
+                            self.view.sendSubviewToBack(webView)
+                            self.loadCards()
+                        }
                 }
-            }
-        }
+                }        
+        decisionHandler(.allow)
         
-        
-        return true
     }
+    
+//    func webView(_ webView: WKWebView, shouldStartLoadWith request: URLRequest, navigationType: WKNavigationType.Type) -> Bool {
+//        if let url_ = request.url?.absoluteString {
+//            if url_.range(of: "card-service-end") != nil || url_.range(of: "card-service-error") != nil {
+//
+//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2) ) {
+//                    self.view.sendSubviewToBack(self.webview)
+//                    self.loadCards()
+//                    return
+//                }
+//            }
+//        }
+//
+//
+//        return true
+//    }
     
 }

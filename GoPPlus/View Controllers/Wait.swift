@@ -1,27 +1,23 @@
 import UIKit
 import WebKit
 
-class Wait: UIViewController, WKUIDelegate {
+class Wait: UIViewController, WKNavigationDelegate {
     
     public var serviceData:Constants.ServiceData?
     var cancelURL = Constants.APIEndpoint.payment + "postauth-service-start?act=CANCEL&id="
     public var confirmationVisible:Bool = false
     public var statusLabelValue:String = ""
-    let webConfiguration = WKWebViewConfiguration()
-
     
     let alert:UIAlertController = UIAlertController(title: "GoPPlus", message: "No se encontraron unidades cercanas, ¿Desea seguir esperando?", preferredStyle: UIAlertController.Style.alert)
     
-    @IBOutlet weak var webview: WKWebView!
+    @IBOutlet weak var webview: WKWebView?
     @IBOutlet weak var statusLabel: UILabel!
     
 
     
     override func viewDidLoad() {
-        print("wait")
         super.viewDidLoad()
-        self.webview = WKWebView(frame: .zero, configuration: webConfiguration)
-        self.webview.uiDelegate = self
+        self.webview?.navigationDelegate = self
         self.confirmationVisible = false
         self.statusLabel.text = "Espere un momento"
         
@@ -89,10 +85,9 @@ class Wait: UIViewController, WKUIDelegate {
         if let id = self.serviceData?.id {
             self.statusLabel.text = "Cancelando servicio"
             let url_ =  self.cancelURL + String(id)
-            self.webview = WKWebView(frame: .zero, configuration: webConfiguration)
-            self.webview.load(URLRequest(url: URL(string: url_)!))
-            self.webview.isHidden = false
-            self.view.bringSubviewToFront(self.webview)
+            webview?.load(URLRequest(url: URL(string: url_)!))
+            webview?.isHidden = false
+            self.view.bringSubviewToFront(webview!)
         }
     }
     
@@ -101,30 +96,53 @@ class Wait: UIViewController, WKUIDelegate {
         return url.queryItems?.first(where: { $0.name == param })?.value
     }
     
-    func webView(_ webView: WKWebView, shouldStartLoadWith request: URLRequest, navigationType: WKNavigationType.Type) -> Bool {
-        self.webview = WKWebView() 
-        if let url_ = request.url?.absoluteString {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        if let url_ = navigationResponse.response.url?.absoluteString {
             
             if url_.range(of: "postauth-service-end") != nil {
-                self.webview.isHidden = true
-                self.view.sendSubviewToBack(self.webview)
+                webView.isHidden = true
+                self.view.sendSubviewToBack(webView)
                 self.statusLabel.text = "Servicio cancelado, espere un momento"
             }
             
             if url_.range(of: "postauth-service-error") != nil {
-                self.webview.isHidden = true
-                self.view.sendSubviewToBack(self.webview)
+                webView.isHidden = true
+                self.view.sendSubviewToBack(webView)
                 self.statusLabel.text = "Espere un momento"
                 
-                if let errorMessage = getQueryStringParameter(url: request.url?.absoluteString ?? "", param: "e") {
+                if let errorMessage = getQueryStringParameter(url: navigationResponse.response.url?.absoluteString ?? "", param: "e") {
                     Constants.showMessage(msg: errorMessage)
                 } else {
                     Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
                 }
             }
         }
-        
-        return true
+        decisionHandler(.allow)
     }
     
+//    func webView(_ webView: WKWebView, shouldStartLoadWith request: URLRequest, navigationType: WKNavigationType.Type) -> Bool {
+//        if let url_ = request.url?.absoluteString {
+//
+//            if url_.range(of: "postauth-service-end") != nil {
+//                self.webview.isHidden = true
+//                self.view.sendSubviewToBack(self.webview)
+//                self.statusLabel.text = "Servicio cancelado, espere un momento"
+//            }
+//
+//            if url_.range(of: "postauth-service-error") != nil {
+//                self.webview.isHidden = true
+//                self.view.sendSubviewToBack(self.webview)
+//                self.statusLabel.text = "Espere un momento"
+//
+//                if let errorMessage = getQueryStringParameter(url: request.url?.absoluteString ?? "", param: "e") {
+//                    Constants.showMessage(msg: errorMessage)
+//                } else {
+//                    Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
+//                }
+//            }
+//        }
+//
+//        return true
+//    }
+//
 }

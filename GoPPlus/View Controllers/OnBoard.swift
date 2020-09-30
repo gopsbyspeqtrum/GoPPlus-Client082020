@@ -2,7 +2,7 @@ import UIKit
 import GoogleMaps
 import WebKit
 
-class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
+class OnBoard: UIViewController, GMSMapViewDelegate, WKNavigationDelegate {
 
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var driveImage: UIImageView!
@@ -15,7 +15,7 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var licNumber: UILabel!
     @IBOutlet weak var mapContainer: UIView!
-    @IBOutlet weak var webview: WKWebView!
+    @IBOutlet weak var webview: WKWebView?
     @IBOutlet weak var loading: UIActivityIndicatorView!
     
     
@@ -28,41 +28,27 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
     private var carMarker:GMSMarker = GMSMarker(position: CLLocationCoordinate2DMake(0, 0))
     private var mapRoute:GMSPolyline?
     var mapLoaded:Bool = false
-    let webConfiguration = WKWebViewConfiguration()
     
     var chatController:Chat?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("onboard")
-        //
-        self.webview = WKWebView()  //frame: .zero, configuration: webConfiguration)
-        self.webview.uiDelegate = self
-        //
-        print("onboard2")
+        self.webview?.navigationDelegate = self
         self.loading.stopAnimating()
-        print("onboard3")
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        print("onboardA")
-
         super.viewWillDisappear(true)
-        self.webview = WKWebView() 
-        self.webview.isHidden = true
-        self.view.sendSubviewToBack(self.webview)
+        webview?.isHidden = true
+        self.view.sendSubviewToBack(webview!)
         self.loading.stopAnimating()
     }
 
     @IBAction func centerMap(_ sender: Any) {
-        print("onboard4")
         if let data = self.serviceData {
             self.map.animate(to: GMSCameraPosition.camera(withLatitude: data.lat!, longitude: data.lng!, zoom: self.zoom))
-            print("onboard4a")
 
         }
-        print("onboard4b")
     }
     
     @IBAction func openChat(_ sender: Any) {
@@ -82,7 +68,6 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("onboardB")
 
         super.viewWillAppear(true)
         if mapLoaded == false {
@@ -97,16 +82,15 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
             if is_accepted {
                 if let data = self.serviceData {
                     let url_ = Constants.APIEndpoint.payment + "postauth-service-start?act=CANCEL&id=" + String(data.id)
-                    self.webview.load(URLRequest(url: URL(string: url_)!))
-                    self.view.bringSubviewToFront(self.webview)
-                    self.webview.isHidden = false
+                    self.webview?.load(URLRequest(url: URL(string: url_)!))
+                    self.view.bringSubviewToFront(self.webview!)
+                    self.webview?.isHidden = false
                 }
             }
         }
     }
     
     private func setMap() {
-        print("onboard5")
 
         self.map = GMSMapView.map(withFrame: self.mapContainer.bounds, camera: GMSCameraPosition.camera(withLatitude: 21.122039, longitude: -101.667102, zoom: self.zoom))
         self.map.autoresizingMask = [.flexibleWidth , .flexibleHeight]
@@ -121,7 +105,6 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
     }
     
     private func updateUI() {
-        print("onboardC")
 
         DispatchQueue.main.async {
             if let data = self.serviceData {
@@ -187,41 +170,9 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
                 self.getRoute()
             }
         }
-        print("onboardCa")
-    }
-    
-    func getQueryStringParameter(url: String, param: String) -> String? {
-        guard let url = URLComponents(string: url) else { return nil }
-        return url.queryItems?.first(where: { $0.name == param })?.value
-    }
-
-    func webView(_ webView: WKWebView, shouldStartLoadWith request: URLRequest, navigationType: WKNavigationType.Type) -> Bool {
-        if let url_ = request.url?.absoluteString {
-            
-            if url_.range(of: "postauth-service-end") != nil {
-                Constants.showMessage(msg: "Cancelado, espere un momento")
-            }
-            
-            if url_.range(of: "postauth-service-error") != nil {
-                
-                if let errorMessage = getQueryStringParameter(url: request.url?.absoluteString ?? "", param: "e") {
-                    Constants.showMessage(msg: errorMessage)
-                } else {
-                    Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
-                }
-                
-                self.webview.isHidden = true
-                self.view.sendSubviewToBack(self.webview)
-                self.view.isUserInteractionEnabled = true
-                self.loading.stopAnimating()
-            }
-        }
-        
-        return true
     }
     
     func getRoute() {
-        print("onboardD")
 
         if let data = self.serviceData {
             let coordinate1 = CLLocation(latitude: data.lat!, longitude: data.lng!)
@@ -309,4 +260,63 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKUIDelegate {
             }
         }
     }
-}
+
+
+    
+    func getQueryStringParameter(url: String, param: String) -> String? {
+        guard let url = URLComponents(string: url) else { return nil }
+        return url.queryItems?.first(where: { $0.name == param })?.value
+    }
+
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        if let url_ = navigationResponse.response.url?.absoluteString {
+       
+                   if url_.range(of: "postauth-service-end") != nil {
+                       Constants.showMessage(msg: "Cancelado, espere un momento")
+                   }
+       
+                   if url_.range(of: "postauth-service-error") != nil {
+       
+                    if let errorMessage = getQueryStringParameter(url: navigationResponse.response.url?.absoluteString ?? "", param: "e") {
+                           Constants.showMessage(msg: errorMessage)
+                       } else {
+                           Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
+                       }
+       
+                       webView.isHidden = true
+                       self.view.sendSubviewToBack(webView)
+                       self.view.isUserInteractionEnabled = true
+                       self.loading.stopAnimating()
+                   }
+               }
+        decisionHandler(.allow)
+        }
+
+    }
+    
+//    func webView(_ webView: WKWebView, shouldStartLoadWith request: URLRequest, navigationType: WKNavigationType.Type) -> Bool {
+//        if let url_ = request.url?.absoluteString {
+//
+//            if url_.range(of: "postauth-service-end") != nil {
+//                Constants.showMessage(msg: "Cancelado, espere un momento")
+//            }
+//
+//            if url_.range(of: "postauth-service-error") != nil {
+//
+//                if let errorMessage = getQueryStringParameter(url: request.url?.absoluteString ?? "", param: "e") {
+//                    Constants.showMessage(msg: errorMessage)
+//                } else {
+//                    Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
+//                }
+//
+//                self.webview?.isHidden = true
+//                self.view.sendSubviewToBack(self.webview!)
+//                self.view.isUserInteractionEnabled = true
+//                self.loading.stopAnimating()
+//            }
+//        }
+//
+//        return true
+//    }
+    
+    
