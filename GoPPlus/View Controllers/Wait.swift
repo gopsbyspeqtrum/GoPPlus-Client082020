@@ -21,7 +21,7 @@ class Wait: UIViewController, WKNavigationDelegate {
         self.confirmationVisible = false
         self.statusLabel.text = "Espere un momento"
         
-        self.alert.addAction(UIAlertAction(title: "Sí, cancelar", style: UIAlertAction.Style.default, handler: { (UIAlertAction) in
+        self.alert.addAction(UIAlertAction(title: "No, cancelar", style: UIAlertAction.Style.default, handler: { (UIAlertAction) in
             self.cancelService()
         }))
         
