@@ -1,6 +1,6 @@
 import UIKit
-//import FBSDKCoreKit
-import FBSDKLoginKit
+import FacebookLogin
+
 
 class Signup: UIViewController, UITextFieldDelegate {
     

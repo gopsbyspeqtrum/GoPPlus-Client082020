@@ -1,7 +1,8 @@
 import UIKit
 import GoogleMaps
-import FBSDKCoreKit
 import UserNotifications
+import FacebookLogin
+import FacebookShare
 
 
 
@@ -32,8 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil))
             UIApplication.shared.registerForRemoteNotifications()
         }
-        
-        
         application.registerForRemoteNotifications()
         application.applicationIconBadgeNumber = 0
         return true
@@ -43,9 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let appId: String = Settings.appID!
         
         if url.scheme != nil && url.scheme!.hasPrefix("fb\(appId)") && url.host ==  "authorize" {
-            return ApplicationDelegate.shared.application(application, open: url, options: options)
+             return ApplicationDelegate.shared.application(application, open: url, options: options)
         }
-        
         return false
     }
 
@@ -93,5 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
 }
+
+// Swift // // AppDelegate.swift import UIKit import FBSDKCoreKit @UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate { func application( _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? ) -> Bool { ApplicationDelegate.shared.application( application, didFinishLaunchingWithOptions: launchOptions ) return true } func application( _ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:] ) -> Bool { ApplicationDelegate.shared.application( app, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation] ) } }
 
 

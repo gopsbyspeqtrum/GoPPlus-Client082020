@@ -29,7 +29,6 @@
 			<string>com.pplus.go</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>GoPPlus</string>
 				<string>fb2328732394056096</string>
 			</array>
 		</dict>
