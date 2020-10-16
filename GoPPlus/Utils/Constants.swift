@@ -8,10 +8,10 @@ class Constants: NSObject {
     static let SECRET:String = "g0sp3qtrUm_"
     
     struct APIEndpoint {
-        static let client : String   =  "https://goclientx.goppluswebx.com/"
-        static let driver : String   =  "https://godriverx.goppluswebx.com/"
-        static let payment : String  =  "https://gopspayx.goppluswebx.com/"
-        static let admin : String    =  "https://gopplusweb.goppluswebx.com/"
+        static let client : String   =  "https://gopplusc.azurewebsites.net/"
+        static let driver : String   =  "https://gopplusd.azurewebsites.net/"
+        static let payment : String  =  "https://gopplusp.azurewebsites.net/"
+        static let admin : String    =  "https://gopplus.website/"
     }
     
     struct VehicleByType:Codable {
