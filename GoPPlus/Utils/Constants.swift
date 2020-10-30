@@ -4,7 +4,7 @@ import Foundation
 
 class Constants: NSObject {
     
-    static let APIKEY:String = "AIzaSyAnLqd2gzuXQxq_msNZSDAHxn7PTNN7b7Q"
+    static let APIKEY:String = "AIzaSyBHLzjH7LEnHdjUlTaRrDBpLjOIsyqTTIs"
     static let SECRET:String = "g0sp3qtrUm_"
     
     struct APIEndpoint {
