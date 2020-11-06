@@ -2,8 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6dJ-iM-vzF">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -780,7 +779,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bgcroquisgris" translatesAutoresizingMaskIntoConstraints="NO" id="LG8-Pz-eG1">
-                                <rect key="frame" x="0.0" y="-650" width="414" height="1334"/>
+                                <rect key="frame" x="0.0" y="-317" width="414" height="1001"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oPE-CO-Qab">
                                 <rect key="frame" x="0.0" y="44" width="414" height="640"/>
@@ -3287,13 +3286,13 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="back" width="50" height="50"/>
-        <image name="bgcroquisgris" width="750" height="1334"/>
+        <image name="bgcroquisgris" width="563" height="1001"/>
         <image name="bglocation" width="751" height="125"/>
         <image name="bgnavbar" width="746" height="158"/>
         <image name="bgred" width="1024" height="1366"/>
         <image name="cancelar" width="96" height="96"/>
         <image name="cc" width="76" height="54"/>
-        <image name="chat" width="47" height="43"/>
+        <image name="chat" width="96" height="96"/>
         <image name="chevronarriba" width="50" height="50"/>
         <image name="defaultprofile" width="185" height="185"/>
         <image name="deletebutton" width="100" height="100"/>
@@ -3301,7 +3300,7 @@
         <image name="iconstarblack" width="50" height="48"/>
         <image name="iconstaryellow" width="50" height="48"/>
         <image name="location" width="49" height="49"/>
-        <image name="logo" width="171" height="124"/>
+        <image name="logo" width="128" height="92"/>
         <image name="menu2" width="48" height="48"/>
         <image name="pin" width="57" height="71"/>
         <image name="pinblanco" width="32" height="39"/>
