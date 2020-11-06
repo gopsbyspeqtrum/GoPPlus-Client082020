@@ -342,20 +342,4 @@ class CreditCard: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         
     }
     
-//    func webView(_ webView: WKWebView, shouldStartLoadWith request: URLRequest, navigationType: WKNavigationType.Type) -> Bool {
-//        if let url_ = request.url?.absoluteString {
-//            if url_.range(of: "card-service-end") != nil || url_.range(of: "card-service-error") != nil {
-//
-//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2) ) {
-//                    self.view.sendSubviewToBack(self.webview)
-//                    self.loadCards()
-//                    return
-//                }
-//            }
-//        }
-//
-//
-//        return true
-//    }
-    
 }

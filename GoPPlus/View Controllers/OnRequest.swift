@@ -34,17 +34,14 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("onreq")
         self.showLoading()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.setTouchListeners()
         self.hideLoading()
-        print("onreqa")
 }
     
     override func viewWillDisappear(_ animated: Bool) {
-        print("onreq1")
         self.loopNearVehicles = false
     }
     
@@ -61,27 +58,19 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
 
     private func setTouchListeners() {
-        print("onreq3")
-
         self.centerUserLocation.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleCenterTap(_:))))
         self.streetLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenSearchTap(_:))))
     }
     
     @objc func handleCenterTap(_ sender: UITapGestureRecognizer) {
-        print("onreq4")
-
         getUserLocation()
     }
     
     @objc func handleOpenSearchTap(_ sender: UITapGestureRecognizer) {
-        print("onreq5")
-
         performSegue(withIdentifier: "addressSegue", sender: self)
     }
     
     @IBAction func openDestination(_ sender: Any) {
-        print("onreq6")
-
         if self.typeSelected.id != 0 {
             if self.latitude != 0 && self.longitude != 0 {
                 performSegue(withIdentifier: "openDestinationSegue", sender: self)
@@ -94,8 +83,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
 
     private func loadMap() {
-        print("onreq7")
-
         self.map = GMSMapView.map(withFrame: self.mapContainer.bounds, camera: GMSCameraPosition.camera(withLatitude: 21.122039, longitude: -101.667102, zoom: zoom))
         self.map.autoresizingMask = [.flexibleWidth , .flexibleHeight]
         self.map.delegate = self
@@ -103,8 +90,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        print("onreq8")
-
         self.latitude =  mapView.projection.coordinate(for: mapView.center).latitude
         self.longitude = mapView.projection.coordinate(for: mapView.center).longitude
         
@@ -114,7 +99,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     private func getUserLocation() {
-        print("onreq9")
 
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -134,8 +118,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        print("onreq10")
-
         if (status == CLAuthorizationStatus.denied) {
             Constants.showMessage(msg: "Habilita los servicios de ubicación")
         } else if (status == CLAuthorizationStatus.authorizedAlways || status == CLAuthorizationStatus.authorizedWhenInUse) {
@@ -144,8 +126,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("onreq11")
-
         if let userLocation = locations.last {
             manager.stopUpdatingLocation()
             
@@ -158,8 +138,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func getLocationAddress(location:CLLocationCoordinate2D) {
-        print("onreq12")
-
         
         if !Constants.isConnectedToNetwork() {
             Constants.showMessage(msg: "No tienes conexión a internet")
@@ -194,8 +172,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     @IBAction func unwindStartAddress(_ sender: UIStoryboardSegue) {
-        print("onreq13")
-
         if let source = sender.source as? Search {
             if !source.location.address.isEmpty {
                 self.doApplyMapChange = false
@@ -210,8 +186,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     @IBAction func unwindDestinationAddress(_ sender: UIStoryboardSegue) {
-        print("onreq14")
-
         if let source = sender.source as? Destination {
             if source.serviceCreated {
                 self.showLoading()
@@ -220,16 +194,12 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     @IBAction func unwindFromRating(_ sender: UIStoryboardSegue) {
-        print("onreq15")
-
         if sender.source is Rating {
             self.ratingOpened = false
         }
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        print("onreq16")
-
         if identifier == "openDestinationSegue" {
             if !self.validStreet {
                 Constants.showMessage(msg: "Elige una dirección válida")

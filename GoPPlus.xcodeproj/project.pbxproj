@@ -126,6 +126,7 @@
 		E2BEC09F2134D7DA00AB6D3D /* Wait.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BEC09E2134D7DA00AB6D3D /* Wait.swift */; };
 		F5157995251BDE510091F1AA /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5157994251BDE510091F1AA /* Metal.framework */; };
 		F5157997251BDE600091F1AA /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5157996251BDE600091F1AA /* MetalKit.framework */; };
+		F570338D255489D200927685 /* Metodo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F570338C255489D200927685 /* Metodo.swift */; };
 		F5D880F62526BAFC000457C7 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = F5D880F52526BAFC000457C7 /* FacebookCore */; };
 		F5D880F82526BB00000457C7 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = F5D880F72526BB00000457C7 /* FacebookLogin */; };
 		F5D880FA2526BB03000457C7 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = F5D880F92526BB03000457C7 /* FacebookShare */; };
@@ -267,6 +268,7 @@
 		F515799B251C4F120091F1AA /* GoogleMapsCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMapsCore.framework; sourceTree = "<group>"; };
 		F515799D251C4F1D0091F1AA /* GoogleMapsBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMapsBase.framework; sourceTree = "<group>"; };
 		F515799F251C4F2C0091F1AA /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
+		F570338C255489D200927685 /* Metodo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metodo.swift; sourceTree = "<group>"; };
 		F5D881062526BDEE000457C7 /* Documents */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Documents; path = ..; sourceTree = "<group>"; };
 		F5D8810E2526C01C000457C7 /* GooglePlaces.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GooglePlaces.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -369,6 +371,7 @@
 				E2151A6F213B510C00F8727B /* Start.swift */,
 				7CA1C4532197182C0091D9E0 /* VehicleCell.swift */,
 				E2BEC09E2134D7DA00AB6D3D /* Wait.swift */,
+				F570338C255489D200927685 /* Metodo.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				E207B6972135D8F6007F26F9 /* Search.swift in Sources */,
 				E222E8DF21304AA600037242 /* OnBoard.swift in Sources */,
 				E24C1C5521385CC900AC5ABD /* Array+Foundation.swift in Sources */,
+				F570338D255489D200927685 /* Metodo.swift in Sources */,
 				E24C1C4E21385CC900AC5ABD /* NoPadding.swift in Sources */,
 				E25456A720B8F85600D9F8A6 /* AppDelegate.swift in Sources */,
 				E24C1C6F21385CC900AC5ABD /* Checksum.swift in Sources */,
@@ -788,7 +792,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 102;
+				CURRENT_PROJECT_VERSION = 105;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 426NG3E4Q3;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -809,7 +813,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 102;
+				MARKETING_VERSION = 105;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -855,7 +859,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 102;
+				CURRENT_PROJECT_VERSION = 105;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 426NG3E4Q3;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -870,7 +874,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 102;
+				MARKETING_VERSION = 105;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
@@ -888,7 +892,7 @@
 				CODE_SIGN_ENTITLEMENTS = GoPPlus/GoPPlus.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 102;
+				CURRENT_PROJECT_VERSION = 105;
 				DEVELOPMENT_TEAM = 426NG3E4Q3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -902,7 +906,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 102;
+				MARKETING_VERSION = 105;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pplus.go;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -919,7 +923,7 @@
 				CODE_SIGN_ENTITLEMENTS = GoPPlus/GoPPlusRelease.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 102;
+				CURRENT_PROJECT_VERSION = 105;
 				DEVELOPMENT_TEAM = 426NG3E4Q3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -933,7 +937,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 102;
+				MARKETING_VERSION = 105;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pplus.go;
 				PRODUCT_NAME = "$(TARGET_NAME)";

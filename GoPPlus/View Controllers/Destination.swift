@@ -2,7 +2,7 @@ import UIKit
 import GoogleMaps
 import WebKit
 
-class Destination: UIViewController, GMSMapViewDelegate, WKNavigationDelegate{
+class Destination: UIViewController, GMSMapViewDelegate, WKNavigationDelegate, UIPopoverControllerDelegate{
 
     @IBOutlet weak var startLabel: UILabel!
     @IBOutlet weak var endLabel: UILabel!
@@ -38,6 +38,7 @@ class Destination: UIViewController, GMSMapViewDelegate, WKNavigationDelegate{
         self.endLabel.text = self.endAddress.address
         self.startMarker.position = CLLocationCoordinate2DMake(self.startAddress.latitude, self.startAddress.longitude)
         self.startMarker.icon = UIImage(named: "s_pin")
+        
     }
     
     
@@ -97,6 +98,21 @@ class Destination: UIViewController, GMSMapViewDelegate, WKNavigationDelegate{
         if let source = sender.source as? CreditCard {
             self.creditcard = source.selectedCreditCard
             self.cardLabel.text = self.creditcard.Numero
+            print(source.selectedCreditCard)
+        }
+    }
+    
+    @IBAction func unwindMetodo(_ sender: UIStoryboardSegue) {
+        if let source = sender.source as? Metodo {
+            switch source.pickV.selectedRow(inComponent: 0) {
+            case 0:
+                self.cardLabel.text = "Efectivo"
+                self.creditcard = Constants.CreditCardItem(Id: 113, Numero: "0000")
+            case 1:
+                self.cardLabel.text = self.creditcard.Numero
+            default:
+                self.cardLabel.text = "Efectivo"
+            }
         }
     }
     
@@ -150,6 +166,41 @@ class Destination: UIViewController, GMSMapViewDelegate, WKNavigationDelegate{
             
         }
         
+        if self.creditcard.Numero == "0000" {
+            var url_ = Constants.APIEndpoint.payment + "preauth-service-start"
+            url_ += "?card_id=" + String(self.creditcard.Id)
+            url_ += "&origen=" + self.startAddress.address.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+            url_ += "&destino=" + self.endAddress.address.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+            url_ += "&lat_origen=" + String(self.startAddress.latitude)
+            url_ += "&lng_origen=" + String(self.startAddress.longitude)
+            url_ += "&lat_destino=" + String(self.endAddress.latitude)
+            url_ += "&lng_destino=" + String(self.endAddress.longitude)
+            url_ += "&usuario_id=" + String(Constants.getIntStored(key: Constants.DBKeys.user + "id"))
+            url_ += "&tipo_id=" + String(self.typeSelected.id)
+            url_ += "&afiliado=" + String(Constants.getIntStored(key: Constants.DBKeys.user + "afiliado"))
+            
+            if !code.isEmpty {
+                url_ += "&codigo=" + code
+            }
+            
+            if !coupon.isEmpty {
+                url_ += "&cupon=" + coupon
+            }
+            
+            url_ += "&cliente_id=" + String(Constants.getIntStored(key: Constants.DBKeys.user + "clienteid"))
+            url_ += "&monto=" + String(format: "%.0f", preauthFare)
+            url_ += "&km=" + String(format: "%.2f", self.selectedKM)
+            
+            var request = URLRequest(url: URL(string: url_)!)
+            
+            request.addValue(Constants.getHeaderValue(key: "appid"), forHTTPHeaderField:"appid")
+            request.addValue(Constants.toEncrypt(text: Constants.getHeaderValue(key: "user.id")), forHTTPHeaderField:"userid")
+            
+                webview?.load(request)
+                
+            
+        }
+        else {
         
         var url_ = Constants.APIEndpoint.payment + "preauth-service-start"
         url_ += "?card_id=" + String(self.creditcard.Id)
@@ -184,7 +235,10 @@ class Destination: UIViewController, GMSMapViewDelegate, WKNavigationDelegate{
         request.addValue(Constants.getHeaderValue(key: "appid"), forHTTPHeaderField:"appid")
         request.addValue(Constants.toEncrypt(text: Constants.getHeaderValue(key: "user.id")), forHTTPHeaderField:"userid")
         
-        webview?.load(request)
+            webview?.load(request)
+            
+        }
+        
     }
     
     @IBAction func openCreditCard(_ sender: Any) {
@@ -215,6 +269,13 @@ class Destination: UIViewController, GMSMapViewDelegate, WKNavigationDelegate{
         if segue.identifier == "openDiscountSegue" {
             if let destination = segue.destination as? PromoCode {
                 destination.prevTypeCode = self.promocode
+            }
+        }
+        
+        if segue.identifier == "openMetodoSegue" {
+            if self.shouldPerformSegue(withIdentifier: "openMetodoSegue", sender: self) {
+                if segue.destination is Metodo {
+                }
             }
         }
     }
@@ -342,30 +403,19 @@ class Destination: UIViewController, GMSMapViewDelegate, WKNavigationDelegate{
         }
         decisionHandler(.allow)
     }
+    
+    @IBAction func PopUpClicked(_ sender: UIButton) -> Void {
+        print("initsegue")
+        performSegue(withIdentifier: "openMetodoSegue", sender: self)
+        print("")
     }
     
-//    func webView(_ webView: WKWebView, shouldStartLoadWith request: URLRequest, navigationType: WKNavigationType.Type) -> Bool {
-//        if let url_ = request.url?.absoluteString {
-//            if url_.range(of: "preauth-service-ok") != nil {
-//                self.serviceCreated = true
-//                performSegue(withIdentifier: "unwindDestinationAddress", sender: self)
-//            }
-//
-//            if url_.range(of: "preauth-service-error") != nil {
-//                self.webview.isHidden = true
-//                self.view.sendSubviewToBack(self.webview)
-//                self.serviceCreated = false
-//
-//                DispatchQueue.main.async {
-//                    if let errorMessage = self.getQueryStringParameter(url: request.url?.absoluteString ?? "", param: "e") {
-//                        Constants.showMessage(msg: errorMessage)
-//                    } else {
-//                        Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
-//                    }
-//                }
-//            }
-//        }
-//
-//        return true
-//    }
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "openMetodoSegue" {
+            return true
+        }
+        return true
+    }
 
+}
+    
