@@ -126,8 +126,9 @@ class Password: UIViewController {
                         if (status) {
                             Constants.store(key: Constants.DBKeys.user + "contrasena", value: pass2.md5())
                         }
-                        
-                        self.dismiss(animated: true, completion: nil)
+                        self.dismiss(animated: true) {
+                            Constants.showMessage(msg: "Contraseña actualizada. La próxima vez que inicies sesión, deberás usar tu nueva contraseña.")
+                        }
                     }
                 }
             }

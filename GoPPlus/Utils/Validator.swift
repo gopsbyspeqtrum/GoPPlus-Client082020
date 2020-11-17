@@ -5,7 +5,8 @@ class Validator: NSObject {
     
     static let requiredError:String = "El campo %s es requerido."
     static let emailError:String = "El campo %s no es una dirección de correo."
-    static let passwordError:String = "El campo %s no es una contraseña válida. Mínimo 8 caracteres, máximo 16. Debe contener mínimo: una letra mayúscula, una minúscula, un caracter especial y números. No debe contener acentos ni los siguientes caracteres <>"
+    static let passwordError:String = "El campo %s no es una contraseña válida. Mínimo 8 caracteres, máximo 16. Debe contener mínimo: una letra mayúscula, una minúscula, un caracter especial ($@$#!%*?&+-) y un número. No debe contener acentos."
+    static let passwordErrorLogin = "Contraseña Inválida, intente nuevamente."
     static let numberError:String = "El campo %s no es un valor numérico"
     static let monthError:String = "El campo %s no es un mes válido"
     static let yearError:String = "El campo %s no es un año válido"
@@ -62,14 +63,8 @@ class Validator: NSObject {
     }
     
     static func isPassword(password: String) -> Bool {
-        let invalidChar = matches(pattern: ".*[\\u00E0-\\u00FC<>`¨´~].*", value: password)
-        let hasUpper = isUpperCase(text: password)
-        let hasLower = isLowerCase(text: password)
-        let hasNumber = isNumber(text: password)
-        let hasSpecialChar = matches(pattern: ".*[-[]{}()*+¿?¡!.,^$|#_/='&%$·@|:]].*", value: password)
-        let hasLength = password.count >= 8 && password.count <= 16
-        
-        return !invalidChar && hasUpper && hasLower && hasNumber && hasSpecialChar && hasLength
+        let longSpecialCh = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[0-9])(?=.*[$@$#!%*?&+-])(?=.*[A-Z]).{8,}$")
+        return longSpecialCh.evaluate(with: password)
     }
     
     static func isRequired(text: String) -> Bool {

@@ -5,10 +5,8 @@ class Share: UIViewController {
     @IBOutlet weak var codeLabel: UILabel!
     
     override func viewDidLoad() {
-        print("M")
-
         super.viewDidLoad()
-        self.codeLabel.text = Constants.getStringStored(key: Constants.DBKeys.user + "codigo")
+        self.codeLabel.text = Constants.getStringStored(key: Constants.DBKeys.user + "codigo").uppercased()
     }
 
     @IBAction func dismissController(_ sender: Any) {
@@ -16,7 +14,7 @@ class Share: UIViewController {
     }
     
     @IBAction func doShare(_ sender: Any) {
-        let text = "¡Usa mi código " + Constants.getStringStored(key: Constants.DBKeys.user + "codigo") + " y recibe un descuento en tu primer viaje con GoPPlus!"
+        let text = "¡Usa mi código " + Constants.getStringStored(key: Constants.DBKeys.user + "codigo").uppercased() + " y recibe un descuento en tu primer viaje con GoPPlus!"
         let textToShare = [text]
         let activityViewController = UIActivityViewController(activityItems: textToShare as [Any], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view

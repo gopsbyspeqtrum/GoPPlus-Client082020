@@ -107,11 +107,12 @@ class Destination: UIViewController, GMSMapViewDelegate, WKNavigationDelegate, U
             switch source.pickV.selectedRow(inComponent: 0) {
             case 0:
                 self.cardLabel.text = "Efectivo"
-                self.creditcard = Constants.CreditCardItem(Id: 113, Numero: "0000")
+                self.creditcard = Constants.CreditCardItem(Id: 155, Numero: "0000")
             case 1:
                 self.cardLabel.text = self.creditcard.Numero
             default:
                 self.cardLabel.text = "Efectivo"
+                self.creditcard = Constants.CreditCardItem(Id: 155, Numero: "0000")
             }
         }
     }
@@ -193,11 +194,14 @@ class Destination: UIViewController, GMSMapViewDelegate, WKNavigationDelegate, U
             
             var request = URLRequest(url: URL(string: url_)!)
             
+            self.webview?.isHidden = false
+
+            self.view.bringSubviewToFront(webview!)
+            
             request.addValue(Constants.getHeaderValue(key: "appid"), forHTTPHeaderField:"appid")
             request.addValue(Constants.toEncrypt(text: Constants.getHeaderValue(key: "user.id")), forHTTPHeaderField:"userid")
             
-                webview?.load(request)
-                
+                webview?.load(request)                
             
         }
         else {

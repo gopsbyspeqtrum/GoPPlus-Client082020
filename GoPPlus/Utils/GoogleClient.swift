@@ -20,10 +20,10 @@ struct GooglePlaces : Codable {
 
 struct GooglePredictions : Codable {
     let description : String
-    let distance_meters : Int
+    //let distance_meters : Int
     let place_id : String
     let terms : [gterms]
-    let types : [gtypes]
+    //let types : [gtypes]
     let matched_substrings : [gmatchedSubstrings]
     let structured_formatting : structuredFormatting
 }
@@ -44,7 +44,7 @@ struct gmatchedSubstrings : Codable {
 
 struct structuredFormatting: Codable {
     let main_text : String
-    let main_text_matched_substrings : mainTextMatchedSubstrings
+    //let matched_substrings : mainTextMatchedSubstrings
     let secondary_text : String
 }
 

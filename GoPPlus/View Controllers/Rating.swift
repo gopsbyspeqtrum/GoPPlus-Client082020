@@ -22,23 +22,21 @@ class Rating: UIViewController {
     @IBOutlet weak var fiveStar: UIButton!
     @IBOutlet weak var loading: UIActivityIndicatorView!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var emailInfo: UILabel!
-    
+    @IBOutlet weak var emailLabel: UILabel!
     
     var rate:Int = 0
     
     var unratedService:Constants.UnratedService = Constants.UnratedService(id: 0, conductor: 0, nombre_conductor: "", fecha: "", precio: 0)
     
     override func viewDidLoad() {
-        print("K")
         super.viewDidLoad()
         self.setupToolbar()
         self.price.text = String(format: "$%.2f", self.unratedService.precio)
         self.driverName.text = self.unratedService.nombre_conductor
         self.dateFinished.text = self.unratedService.fecha
+        self.emailLabel.text = "quejas_movilidad@guanajuato.gob.mx"
         self.showDriverProfileImage()
         self.loading.stopAnimating()
-        self.emailInfo.text = Constants.getFromSetting(key: "correoAppCliente")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -158,7 +156,7 @@ class Rating: UIViewController {
     
     @IBAction func doSend(_ sender: Any) {
         if self.rate == 0 {
-            Constants.showMessage(msg: "Califica tu servicio")
+            Constants.showMessage(msg: "Califica tus Servicios, así nos ayudas a mejorar.")
             return
         }
         

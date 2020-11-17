@@ -61,7 +61,7 @@ class Login: UIViewController {
         }
         
         if !Validator.isPassword(password: pass) {
-            message += "\n" + Validator.replaceMessage(name: passPlaceholder, value: pass, message: Validator.passwordError)
+            message += "\n" + Validator.replaceMessage(name: passPlaceholder, value: pass, message: Validator.passwordErrorLogin)
         }
         
 

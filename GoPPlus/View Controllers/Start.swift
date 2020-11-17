@@ -33,7 +33,6 @@ class Start: UIViewController {
     }
     
     override func viewDidLoad() {
-        print("start")
         super.viewDidLoad()
         self.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.getVersionNumber()
@@ -46,14 +45,10 @@ class Start: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "containerOnRequest" {
-            print("onRequest segue")
             self.OnRequestController = segue.destination as? OnRequest
         } else if segue.identifier == "containerOnBoard" {
-            print("onBoard segue")
             self.OnBoardController = segue.destination as? OnBoard
-            print("viewdidload")
         } else if segue.identifier == "containerOnWait" {
-            print("onWait segue")
             self.OnWaitController = segue.destination as? Wait
         } else {
             self.toggleSidebar(self)
@@ -82,14 +77,10 @@ class Start: UIViewController {
     }
     
     @IBAction func openServices(_ sender: Any) {
-        print("start13")
-
         self.toggleSidebar(self)
     }
     
     @IBAction func openTerms(_ sender: Any) {
-        print("start12")
-
         self.toggleSidebar(self)
         
         if let data = UserDefaults.standard.value(forKey:"settings") as? Data {
@@ -115,7 +106,6 @@ class Start: UIViewController {
     }
     
     func loadUserImage() {
-        print("viewdidloadimage")
         let fbid = Constants.getStringStored(key: Constants.DBKeys.user + "fbid")
         let usid = Constants.getIntStored(key: Constants.DBKeys.user + "id")
         var profileImageUrl:String = "";
@@ -151,11 +141,9 @@ class Start: UIViewController {
                 self.userImage.layer.masksToBounds = true
             }
         }
-        print("viewdidloadimageF")
     }
     
     private func showWait() {
-        print("start9")
         DispatchQueue.main.async {
             if (self.waitContainer.isHidden) {
                 self.onBoardContainer.isHidden = true
@@ -167,22 +155,17 @@ class Start: UIViewController {
     }
     
     private func showOnRequest() {
-        print("start7")
         DispatchQueue.main.async {
             if (self.onRequestContainer.isHidden) {
-                print("start7a")
                 self.onBoardContainer.isHidden = true
                 self.waitContainer.isHidden = true
                 self.onRequestContainer.isHidden = false
                 self.showNavigationBar()
             }
         }
-        print("start7b")
-
     }
     
     private func showOnBoard() {
-        print("start8")
         DispatchQueue.main.async {
             if (self.onBoardContainer.isHidden) {
                 self.onRequestContainer.isHidden = true
@@ -194,28 +177,22 @@ class Start: UIViewController {
     }
     
     private func hideNavigationBar() {
-        print("start11")
         self.navigationBar.isHidden = true
         self.navigationBarLogo.isHidden = true
     }
     
     private func showNavigationBar() {
-        print("start10")
         self.navigationBar.isHidden = false
         self.navigationBarLogo.isHidden = false
-        print("start10a")
     }
     
     private func getUnratedServiceLoop(seconds:Int) {
-        print("start6")
         let userId:Int = Constants.getIntStored(key: Constants.DBKeys.user + "id")
         
         if userId == 0 {
-            print("Missing user id")
             self.performSegue(withIdentifier: "unwinStartView", sender: self)
             return
         }
-        print("start6a")
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(seconds), execute: {
             Constants.getRequest(endpoint: Constants.APIEndpoint.client + "finished", parameters: ["id": String(userId)], completion: { (result) in
                 let delaySeconds:Int = 15
@@ -244,16 +221,13 @@ class Start: UIViewController {
                 } catch {
                     print("Error [finished]")
                 }
-                print("start6b")
                 self.getUnratedServiceLoop(seconds: delaySeconds)
             })
         })
-        print("start6c")
 
     }
     
     private func getSettingsLoop() {
-        print("start5")
 
         if Constants.getIntStored(key: Constants.DBKeys.user + "id") == 0 {
             return
@@ -265,7 +239,6 @@ class Start: UIViewController {
     }
     
     private func getActiveServiceLoop(seconds:Int) {
-        print("start15")
 
         let userId:Int = Constants.getIntStored(key: Constants.DBKeys.user + "id")
         
@@ -277,7 +250,6 @@ class Start: UIViewController {
         
         
         loadUserImage()
-        print("start*")
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(seconds) ) {
             Constants.getRequest(endpoint: Constants.APIEndpoint.client + "get-service", parameters: ["id": String(userId)], completion: { (result) in
                 var delaySeconds:Int = 10
@@ -349,12 +321,9 @@ class Start: UIViewController {
                 self.getActiveServiceLoop(seconds: delaySeconds)
             })
         }
-        print("start*a")
-
     }
     
     private func remoteSync() {
-        print("start2")
         let userId:Int = Constants.getIntStored(key: Constants.DBKeys.user + "id")
         
         if userId == 0 {
@@ -401,7 +370,6 @@ class Start: UIViewController {
     }
     
     func syncToken() {
-        print("start3")
         if (Constants.existStored(key: "deviceToken")) {
             let dt = DeviceToken(id: Constants.getIntStored(key: Constants.DBKeys.user + "id"), token: Constants.getStringStored(key: "deviceToken"))
             
@@ -417,8 +385,7 @@ class Start: UIViewController {
     }
     
     func getVersionNumber() {
-        print("start4")
         let nsObject: AnyObject? = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as AnyObject
-        self.versionLabel.text = self.versionLabel.text! + " " + (nsObject as! String)
+        self.versionLabel.text = self.versionLabel.text! + " 1.0." + (nsObject as! String) + " (" + (nsObject as! String) + ") TEST"
     }
 }

@@ -20,7 +20,6 @@ class Search: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var searchResult:GooglePlaces = GooglePlaces(status: "NO", predictions: [])
     
     override func viewDidLoad() {
-        print("L")
         super.viewDidLoad()
         self.setupToolbar()
         self.table.dataSource = self
@@ -62,23 +61,20 @@ class Search: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func getAddresses(address: String) {
         self.data.removeAll()
-        
         self.loading.startAnimating()
-        
         googleClient.getGooglePlacesData(forKeyword: address + " Leon,Guanajuato") { (response) in
-            
             DispatchQueue.main.async {
-                self.loading.stopAnimating()
                 
+                self.loading.stopAnimating()
+                print(response.results.count)
+                print(response.results)
                 if response.results.count > 0 {
                     let searchRes:GooglePlaces = response.results[0]
                     self.searchResult = searchRes
-                    
                     for p in self.searchResult.predictions  {
                         self.data.append(Location(latitude: 0,longitude: 0, address: p.structured_formatting.main_text))
                         self.table.reloadData()
                     }
-                    
                 } else {
                     Constants.showMessage(msg: "No se encontraron coincidencias")
                 }

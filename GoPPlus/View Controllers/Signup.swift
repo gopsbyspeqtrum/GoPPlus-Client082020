@@ -38,6 +38,7 @@ class Signup: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loading: UIActivityIndicatorView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var openTerms: UILabel!
+    @IBOutlet weak var vview: UIView!
     
     override func viewDidLoad() {
         print("N")
@@ -83,6 +84,11 @@ class Signup: UIViewController, UITextFieldDelegate {
     @IBAction func specialDateTextFieldClick(_ sender: UITextField) {
         let datePickerView:UIDatePicker = UIDatePicker()
         let calendar = Calendar(identifier: .gregorian)
+        datePickerView.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 13.4, *) {
+            datePickerView.preferredDatePickerStyle=UIDatePickerStyle.wheels
+        }
+
         var comps = DateComponents()
         comps.year = -99
         let minDate = calendar.date(byAdding: comps, to: Date())
@@ -100,10 +106,10 @@ class Signup: UIViewController, UITextFieldDelegate {
                 datePickerView.date = date
             }
         }
-        
         datePickerView.maximumDate = maxDate
         datePickerView.minimumDate = minDate
         datePickerView.datePickerMode = UIDatePicker.Mode.date
+
         
         self.birthdayField.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(datePickerFromValueChanged), for: UIControl.Event.valueChanged)
@@ -121,8 +127,6 @@ class Signup: UIViewController, UITextFieldDelegate {
         self.checkboxView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector (self.tapAction (_:))))
         self.openTerms.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector (self.openTermsAction (_:))))
     }
-    
-    
     
     private func setupToolbar() {
         let toolbar:UIToolbar = UIToolbar(frame: CGRect(x:0, y:0, width: self.view.frame.width, height: 30))

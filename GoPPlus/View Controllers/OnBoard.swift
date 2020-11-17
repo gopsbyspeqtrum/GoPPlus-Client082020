@@ -10,13 +10,13 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKNavigationDelegate {
     @IBOutlet weak var driverName: UILabel!
     @IBOutlet weak var makeModel: UILabel!
     @IBOutlet weak var extraInfo: UILabel!
-    @IBOutlet weak var kmInfo: UILabel!
     @IBOutlet weak var chatButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var licNumber: UILabel!
     @IBOutlet weak var mapContainer: UIView!
     @IBOutlet weak var webview: WKWebView?
     @IBOutlet weak var loading: UIActivityIndicatorView!
+    @IBOutlet weak var butmensaje: UIButton!
     
     
     let zoom:Float = 15.0
@@ -52,6 +52,11 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKNavigationDelegate {
     }
     
     @IBAction func openChat(_ sender: Any) {
+        //chatSegue
+        self.performSegue(withIdentifier: "chatSegue", sender: self)
+    }
+    
+    @IBAction func openchat2(_ sender: Any) {
         //chatSegue
         self.performSegue(withIdentifier: "chatSegue", sender: self)
     }
@@ -112,10 +117,10 @@ class OnBoard: UIViewController, GMSMapViewDelegate, WKNavigationDelegate {
                 self.statusLabel.text = data.estatus_reserva_nombre
                 self.driverName.text = data.nombre
                 self.driverRate.text = String(data.calificacion ?? 5)
-                self.makeModel.text = data.marca! + " " + data.modelo!
-                self.extraInfo.text = data.color! + " " + data.placas!
+                self.makeModel.text = data.marca! + " " + data.modelo! + " " + data.color!
+                self.extraInfo.text = data.placas!
                 self.licNumber.text = data.permiso ?? ""
-                self.kmInfo.text = String(data.km ) + "km"
+                //self.kmInfo.text = String(data.km ) + "km"
                 
                 let profileImageUrl = Constants.APIEndpoint.driver + "images"
                 let parameters:[String:String] = ["id": String(data.id_conductor) + ".jpg"]

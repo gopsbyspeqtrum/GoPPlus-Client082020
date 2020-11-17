@@ -80,7 +80,6 @@ class Metodo:UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
     
     
     @IBAction func okbuttondo(_ sender: UIButton) {
-        print("okbuttondo")
         if self.pickV.selectedRow(inComponent: 0)==0 {
             self.performSegue(withIdentifier: "unwindMetodo", sender: self)
         }

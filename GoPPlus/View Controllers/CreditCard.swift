@@ -56,17 +56,20 @@ class CreditCard: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     @objc func keyboardWillShow(notification:NSNotification){
         let userInfo = notification.userInfo!
-        var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
-        
-        var contentInset:UIEdgeInsets = self.scrollview.contentInset
-        contentInset.bottom = keyboardFrame.size.height
-        self.scrollview.contentInset = contentInset
+        let keyboardSize:CGSize = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.size;
+        [UIView.animate(withDuration: 0.3, animations:{
+            var f:CGRect = self.view.frame;
+                    f.origin.y = -keyboardSize.height;
+                    self.view.frame = f;
+        })];
     }
     
     @objc func keyboardWillHide(notification:NSNotification){
-        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
-        self.scrollview.contentInset = contentInset
+        [UIView.animate(withDuration:0.3, animations:{
+            var f:CGRect = self.view.frame;
+                f.origin.y = 0.0;
+                self.view.frame = f;
+            })];
     }
 
     @IBAction func dismissController(_ sender: Any) {
