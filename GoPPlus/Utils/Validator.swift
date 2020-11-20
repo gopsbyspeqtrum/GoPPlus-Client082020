@@ -63,7 +63,7 @@ class Validator: NSObject {
     }
     
     static func isPassword(password: String) -> Bool {
-        let longSpecialCh = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[0-9])(?=.*[$@$#!%*?&+-])(?=.*[A-Z]).{8,}$")
+        let longSpecialCh = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[0-9])(?=.*[.@$#!%*?&+-])(?=.*[A-Z]).{8,}$")
         return longSpecialCh.evaluate(with: password)
     }
     
