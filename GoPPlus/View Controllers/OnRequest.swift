@@ -46,7 +46,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("onreq2")
 
         self.loopNearVehicles = true
         
@@ -211,9 +210,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("onreq17")
-
-        
         if Constants.isConnectedToNetwork() == false {
             Constants.showMessage(msg: "No tienes conexión a internet")
             return
@@ -243,8 +239,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     @IBAction func doSwipeContainer(_ sender: Any) {
-        print("onreq18")
-
         if doSwipeContainerHidden {
             self.swipeHeight100Constraint.isActive = false
             self.swipeHeightLargeConstraint.isActive = true
@@ -263,8 +257,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     private func displayVehiclesByType() {
-        print("onreq19")
-
         if let data = UserDefaults.standard.value(forKey:"vehiclesByType") as? Data {
             guard let vehiclesByType = try? PropertyListDecoder().decode([Constants.VehicleByType].self, from: data) else {
                 print("Error getting vehiclesByType")
@@ -292,8 +284,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("onreq20")
-
         for cell in self.collectionView.visibleCells as! [VehicleCell] {
             cell.setImage(selected: false)
         }
@@ -306,14 +296,10 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("onreq21")
-
         return self.vehiclesArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("onreq22")
-
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VehicleCell", for: indexPath) as! VehicleCell
         let vehicle = self.vehiclesArray[indexPath.row] as Constants.VehicleByType
         
@@ -335,8 +321,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func doLoopNearVehicles() {
-        print("onreq23")
-
         if (self.loopNearVehicles) {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(10) ) {
                 self.displayNearVehicles()
@@ -346,8 +330,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     func displayNearVehicles() {
-        print("onreq24")
-
         if self.typeSelected.id != 0 && self.latitude != 0 && self.longitude != 0 {
             let type = String(self.typeSelected.id)
             let lat  = String(format:"%f", self.latitude)
@@ -392,8 +374,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     
     
     func calculateTime() {
-        print("onreq25")
-
         if self.nearVehicles.count > 0 {
             let firstVehicle = self.nearVehicles[0]
             var minutes:Double = 0
@@ -457,15 +437,11 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     public func showLoading() {
-        print("onreq26")
-
         self.loading.startAnimating()
         self.view.isUserInteractionEnabled = false
     }
     
     public func hideLoading() {
-        print("onreq27")
-
         DispatchQueue.main.async {
             self.loading.stopAnimating()
             self.view.isUserInteractionEnabled = true
@@ -473,8 +449,6 @@ class OnRequest: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     }
     
     public func newUnratedService(service: Constants.UnratedService) {
-        print("onreq28")
-
         DispatchQueue.main.async {
             if service.id != 0 {
                 if self.ratingOpened == false {

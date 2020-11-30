@@ -115,7 +115,6 @@ class Constants: NSObject {
         }))
         
         UIApplication.topViewController()?.present(alert, animated: true, completion: {
-            //print("Alert displayed")
         })
     }
     
@@ -131,7 +130,6 @@ class Constants: NSObject {
         }))
         
         UIApplication.topViewController()?.present(alert, animated: true, completion: {
-            //print("Alert displayed")
         })
     }
     
@@ -143,7 +141,6 @@ class Constants: NSObject {
         }))
         
         UIApplication.topViewController()?.present(alert, animated: true, completion: {
-            //print("Alert displayed")
         })
     }
     
@@ -152,7 +149,6 @@ class Constants: NSObject {
         
         if let data = UserDefaults.standard.value(forKey:"settings") as? Data {
             guard let settings = try? PropertyListDecoder().decode([Constants.Settings].self, from: data) else {
-                print("Error getting settings")
                 return value
             }
             
@@ -376,9 +372,7 @@ class Constants: NSObject {
         }
         
         var request = URLRequest(url: urlComponent.url!)
-        
-        print("=== GET ===")
-        print(urlComponent.url!)
+                print(urlComponent.url!)
         
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -444,9 +438,6 @@ class Constants: NSObject {
         }
         
         var request = URLRequest(url: urlComponent.url!)
-        
-        //print("=== GET ===")
-        //print(urlComponent.url!)
         
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -515,10 +506,6 @@ class Constants: NSObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        
-        //print("=== POST ===")
-        //print(endpoint)
         
         if (existStored(key: "appid")) {
             let appid:String = getStringStored(key: "appid")

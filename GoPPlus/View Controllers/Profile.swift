@@ -16,7 +16,6 @@ class Profile: UIViewController, UITextFieldDelegate, UIImagePickerControllerDel
     var keyboardHeight: CGFloat = 0
     
     override func viewDidLoad() {
-        print("I")
         super.viewDidLoad()
         self.birthdayField.delegate = self
         self.profileImage.isUserInteractionEnabled = true
@@ -30,10 +29,11 @@ class Profile: UIViewController, UITextFieldDelegate, UIImagePickerControllerDel
         loadUserData()
         
         self.myPickerController.delegate = self;
-        self.myPickerController.sourceType = .photoLibrary
+        self.myPickerController.sourceType = .camera;
         
         self.setupToolbar()
         self.loading.stopAnimating()
+        print("fin didload")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -202,6 +202,7 @@ class Profile: UIViewController, UITextFieldDelegate, UIImagePickerControllerDel
     }
     
     func loadUserData() {
+        print("loaduser")
         self.birthdayField.text = Constants.getStringStored(key: Constants.DBKeys.user + "fechac")
         self.nameField.text = Constants.getStringStored(key: Constants.DBKeys.user + "nombre")
         self.phoneField.text = Constants.getStringStored(key: Constants.DBKeys.user + "telefono")
@@ -209,6 +210,7 @@ class Profile: UIViewController, UITextFieldDelegate, UIImagePickerControllerDel
     }
     
     func loadUserImage() {
+        print("loaduserimage")
         let fbid = Constants.getStringStored(key: Constants.DBKeys.user + "fbid")
         let usid = Constants.getIntStored(key: Constants.DBKeys.user + "id")
         var profileImageUrl:String = "";
@@ -241,14 +243,23 @@ class Profile: UIViewController, UITextFieldDelegate, UIImagePickerControllerDel
     }
     
     @objc func changeProfileImage(_ sender: UITapGestureRecognizer) {
+        print("iniChangeProfile")
         let fbid = Constants.getStringStored(key: Constants.DBKeys.user + "fbid")
-        
+        print("iniChangeProfile2")
         if (fbid.isEmpty) {
+            print("iniChangeProfile3")
             PHPhotoLibrary.requestAuthorization { (status) in
                 switch status{
                     case .authorized:
+                        print("iniChangeProfile4")
+
                         DispatchQueue.main.async{
+                            print("iniChangeProfile5")
+                            //self.present(<#T##viewControllerToPresent: UIViewController##UIViewController#>, animated: <#T##Bool#>, completion: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
                             self.present(self.myPickerController, animated: true, completion: nil)
+                            //self.presentModalViewController(self.myPickerController, animated: true)
+                            print("iniChangeProfile6")
+
                         }
                     default:
                         Constants.showMessage(msg: "Permite el acceso a la librería para seleccionar una nueva foto de perfil")
@@ -285,6 +296,7 @@ class Profile: UIViewController, UITextFieldDelegate, UIImagePickerControllerDel
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print("imagepickercontroler")
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         let size = image.size
         
@@ -304,7 +316,7 @@ class Profile: UIViewController, UITextFieldDelegate, UIImagePickerControllerDel
         let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
         
         // Actually do the resizing to the rect using the ImageContext stuff
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        UIGraphicsBeginImageContextWithOptions(newSize, false, UIScreen.main.scale)
         image.draw(in: rect)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -325,7 +337,8 @@ class Profile: UIViewController, UITextFieldDelegate, UIImagePickerControllerDel
             self.loading.startAnimating()
             
             Constants.postRequest(endpoint: Constants.APIEndpoint.client + "upload-profile-image", bodyData: uploadData) { (result) in
-                
+                print(uploadData)
+
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(5) ) {
                     self.loading.stopAnimating()
                     
@@ -338,7 +351,6 @@ class Profile: UIViewController, UITextFieldDelegate, UIImagePickerControllerDel
                 }
             }
         }
-        
         dismiss(animated: true, completion: nil)
     }
     

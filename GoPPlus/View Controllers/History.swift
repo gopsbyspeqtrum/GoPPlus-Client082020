@@ -39,8 +39,6 @@ class History: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var historyItems:[HistoryStruct] = []
     
     override func viewDidLoad() {
-        print("F")
-
         super.viewDidLoad()
         self.table.delegate = self
         self.table.dataSource = self

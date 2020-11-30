@@ -73,7 +73,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ZG-JL-NJp">
-                                                <rect key="frame" x="116" y="40" width="118" height="43.5"/>
+                                                <rect key="frame" x="116" y="64" width="118" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -105,7 +105,6 @@
                                             <constraint firstAttribute="trailing" secondItem="hSo-C9-HLc" secondAttribute="trailing" constant="10" id="gcW-2y-EXx"/>
                                             <constraint firstItem="hSo-C9-HLc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5vk-Ae-UZI" secondAttribute="leading" constant="20" symbolic="YES" id="iwv-tY-CGW"/>
                                             <constraint firstItem="Xsp-DP-D4r" firstAttribute="leading" secondItem="5vk-Ae-UZI" secondAttribute="leading" constant="8" id="lr8-J4-Teb"/>
-                                            <constraint firstItem="5ZG-JL-NJp" firstAttribute="centerY" secondItem="Xsp-DP-D4r" secondAttribute="centerY" constant="-12.5" id="uRs-K8-qpi"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3t6-3u-uf3">
@@ -1338,19 +1337,17 @@
                                                     <constraint firstAttribute="height" constant="128" id="gWC-jf-J42"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Da click en la imagen para modificarla" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIF-RA-Vm7">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Da click en la imagen para modificarla" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIF-RA-Vm7">
                                                 <rect key="frame" x="99.5" y="144" width="215" height="14.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="aIF-RA-Vm7" firstAttribute="centerY" secondItem="ILx-bk-U1e" secondAttribute="centerY" constant="-249.75" id="7zG-0U-Aqa"/>
                                             <constraint firstAttribute="top" secondItem="Rea-mv-kq2" secondAttribute="bottom" constant="-136" id="Ikz-wE-img"/>
-                                            <constraint firstItem="aIF-RA-Vm7" firstAttribute="top" secondItem="Rea-mv-kq2" secondAttribute="bottom" constant="8" id="MJ7-Vc-1PX"/>
                                             <constraint firstItem="Rea-mv-kq2" firstAttribute="top" secondItem="ILx-bk-U1e" secondAttribute="top" constant="8" id="hbT-pF-482"/>
-                                            <constraint firstItem="aIF-RA-Vm7" firstAttribute="centerX" secondItem="Rea-mv-kq2" secondAttribute="centerX" id="kuj-8r-u5x"/>
                                             <constraint firstItem="Rea-mv-kq2" firstAttribute="centerX" secondItem="ILx-bk-U1e" secondAttribute="centerX" id="oaf-QI-5So"/>
                                         </constraints>
                                     </view>
@@ -1966,7 +1963,7 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bgcroquisgris" translatesAutoresizingMaskIntoConstraints="NO" id="NDa-3K-ZPm">
-                                <rect key="frame" x="0.0" y="44" width="419" height="650"/>
+                                <rect key="frame" x="0.0" y="44" width="419" height="646"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j3W-Ia-jhc">
                                 <rect key="frame" x="16" y="0.0" width="32" height="32"/>
@@ -2004,11 +2001,11 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5Ae-9e-wZ3">
-                                <rect key="frame" x="0.0" y="100" width="419" height="560"/>
+                                <rect key="frame" x="0.0" y="100" width="419" height="556"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Sjp-qT-yLe">
-                                <rect key="frame" x="159.5" y="319" width="100" height="100"/>
+                                <rect key="frame" x="159.5" y="317" width="100" height="100"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="BE7-6a-ltu"/>
@@ -3527,16 +3524,16 @@
         <image name="bgcroquisgris" width="563" height="1001"/>
         <image name="bglocation" width="751" height="125"/>
         <image name="bglogintop" width="654" height="653"/>
-        <image name="bgnavbar" width="746" height="158"/>
+        <image name="bgnavbar" width="750" height="154"/>
         <image name="bgred" width="1024" height="1366"/>
-        <image name="cancelar" width="96" height="96"/>
+        <image name="cancelar" width="150" height="150"/>
         <image name="cc" width="76" height="54"/>
         <image name="chats" width="150" height="143"/>
         <image name="chevronarriba" width="50" height="50"/>
         <image name="defaultprofile" width="185" height="185"/>
         <image name="deletebutton" width="100" height="100"/>
         <image name="deskclock" catalog="system" width="128" height="124"/>
-        <image name="flag" width="104" height="96"/>
+        <image name="flag" width="687" height="1239"/>
         <image name="gift.fill" catalog="system" width="128" height="124"/>
         <image name="iconstarblack" width="50" height="48"/>
         <image name="iconstaryellow" width="50" height="48"/>

@@ -69,6 +69,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>GoPPlus necesita acceder a tu cámara.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>GoPPlus necesita tu ubicación para brindarte un mejor servicio</string>
 	<key>NSLocationUsageDescription</key>

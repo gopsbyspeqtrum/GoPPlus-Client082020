@@ -39,61 +39,62 @@ class Forgot: UIViewController {
     
     @IBAction func doSendAuthCode(_ sender: Any) {
         email = self.emailField.text!
-        
-        let placeholder = self.emailField.placeholder!
-        var message = ""
-        
-        if !Validator.isRequired(text: email) {
-            message += "\n" + Validator.requiredError
-        }
-        
-        if !Validator.isEmail(email: email) {
-            message += "\n" + Validator.emailError
-        }
-        
-        if !message.isEmpty {
-            Constants.showMessage(msg: Validator.replaceMessage(name: placeholder, value: email, message: message))
-        } else {
-            //Send code
-            let dataSend = DataSend(email: email)
-            
-            guard let upload = try? JSONEncoder().encode(dataSend) else {
-                Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
-                return
-            }
-            
-            self.loading.startAnimating()
-            self.view.isUserInteractionEnabled = false
-            
-            Constants.postRequest(endpoint: Constants.APIEndpoint.client + "forgot", bodyData: upload) { response in
-                
-                DispatchQueue.main.async {
-                    self.loading.stopAnimating()
-                    self.view.isUserInteractionEnabled = true
-                    
-                    if response == nil {
-                        Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
-                        return;
-                    }
-                    
-                    guard let response = response else {
-                        Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
-                        return;
-                    }
-                    
-                    if let status = response["status"] as? Bool,
-                        let message = response["message"] as? String {
-                        
-                        if status {
-                            self.performSegue(withIdentifier: "passwordReplaceSegue", sender: nil)
-                        } else {
-                            Constants.showMessage(msg: message)
-                        }
-                    }
-                }
-            }
-        }
+               
+               let placeholder = self.emailField.placeholder!
+               var message = ""
+               
+               if !Validator.isRequired(text: email) {
+                   message += "\n" + Validator.requiredError
+               }
+               
+               if !Validator.isEmail(email: email) {
+                   message += "\n" + Validator.emailError
+               }
+               
+               if !message.isEmpty {
+                   Constants.showMessage(msg: Validator.replaceMessage(name: placeholder, value: email, message: message))
+               } else {
+                   //Send code
+                   let dataSend = DataSend(email: email)
+                   
+                   guard let upload = try? JSONEncoder().encode(dataSend) else {
+                       Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
+                       return
+                   }
+                   
+                   self.loading.startAnimating()
+                   self.view.isUserInteractionEnabled = false
+                   
+                   Constants.postRequest(endpoint: Constants.APIEndpoint.client + "forgot", bodyData: upload) { response in
+                       
+                       DispatchQueue.main.async {
+                           self.loading.stopAnimating()
+                           self.view.isUserInteractionEnabled = true
+                           
+                           if response == nil {
+                               Constants.showMessage(msg: "Debes activar tu usuario para usar esta opción.")
+                               return;
+                           }
+                           
+                           guard let response = response else {
+                               Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
+                               return;
+                           }
+                           
+                           if let status = response["status"] as? Bool,
+                               let message = response["message"] as? String {
+                               
+                               if status {
+                                   self.performSegue(withIdentifier: "passwordReplaceSegue", sender: nil)
+                               } else {
+                                   Constants.showMessage(msg: message)
+                               }
+                           }
+                       }
+                   }
+               }
     }
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "passwordReplaceSegue" {

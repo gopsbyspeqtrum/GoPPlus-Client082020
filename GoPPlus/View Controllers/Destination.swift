@@ -411,7 +411,6 @@ class Destination: UIViewController, GMSMapViewDelegate, WKNavigationDelegate, U
     @IBAction func PopUpClicked(_ sender: UIButton) -> Void {
         print("initsegue")
         performSegue(withIdentifier: "openMetodoSegue", sender: self)
-        print("")
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {

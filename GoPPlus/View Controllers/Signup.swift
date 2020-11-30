@@ -41,8 +41,6 @@ class Signup: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var vview: UIView!
     
     override func viewDidLoad() {
-        print("N")
-
         super.viewDidLoad()
         self.getPublicConfig()
         self.birthdayField.delegate = self
@@ -149,7 +147,6 @@ class Signup: UIViewController, UITextFieldDelegate {
     }
     
     @objc func openTermsAction(_ sender:UITapGestureRecognizer) {
-        print("here")
         if self.currentSettings.settings.count > 0 {
             
             for s in self.currentSettings.settings {

@@ -91,13 +91,10 @@ class GoogleClient: GoogleClientRequest {
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: result as Any, options: [])
                     let googleresults =  try JSONDecoder().decode(GooglePlaces.self, from: jsonData)
-                    print("google")
-                    print(googleresults)
                     completionHandler(GooglePlacesResponse(results: [googleresults]))
                     return
                 } catch {
                     completionHandler(GooglePlacesResponse(results: []))
-                    print("Google")
                     print(error)
                 }
             }

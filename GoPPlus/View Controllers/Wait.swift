@@ -32,19 +32,16 @@ class Wait: UIViewController, WKNavigationDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("wait2")
         super.viewWillAppear(true)
         self.statusLabel.text = "Espere un momento"
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        print("wait3")
         super.viewWillDisappear(true)
         self.statusLabel.text = "Espere un momento"
     }
     
     public func setServiceData(data: Constants.ServiceData) {
-        print("wait4")
         self.serviceData = data
         
         DispatchQueue.main.async {
@@ -64,7 +61,6 @@ class Wait: UIViewController, WKNavigationDelegate {
     }
     
     func openConfirmation() {
-        print("wait5")
         DispatchQueue.main.async {
             self.confirmationVisible = true
             self.present(self.alert, animated: true, completion: nil)
@@ -72,7 +68,6 @@ class Wait: UIViewController, WKNavigationDelegate {
     }
     
     public func hideAlert() {
-        print("wait6")
         DispatchQueue.main.async {
             if self.confirmationVisible {
                 self.alert.dismiss(animated: true, completion: nil)
@@ -119,30 +114,4 @@ class Wait: UIViewController, WKNavigationDelegate {
         }
         decisionHandler(.allow)
     }
-    
-//    func webView(_ webView: WKWebView, shouldStartLoadWith request: URLRequest, navigationType: WKNavigationType.Type) -> Bool {
-//        if let url_ = request.url?.absoluteString {
-//
-//            if url_.range(of: "postauth-service-end") != nil {
-//                self.webview.isHidden = true
-//                self.view.sendSubviewToBack(self.webview)
-//                self.statusLabel.text = "Servicio cancelado, espere un momento"
-//            }
-//
-//            if url_.range(of: "postauth-service-error") != nil {
-//                self.webview.isHidden = true
-//                self.view.sendSubviewToBack(self.webview)
-//                self.statusLabel.text = "Espere un momento"
-//
-//                if let errorMessage = getQueryStringParameter(url: request.url?.absoluteString ?? "", param: "e") {
-//                    Constants.showMessage(msg: errorMessage)
-//                } else {
-//                    Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
-//                }
-//            }
-//        }
-//
-//        return true
-//    }
-//
 }

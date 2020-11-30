@@ -20,8 +20,6 @@ class Activate: UIViewController {
     var fromLogin:Bool = false
     
     override func viewDidLoad() {
-        print("A")
-
         super.viewDidLoad()
         self.setupToolbar()
         self.loading.stopAnimating()
