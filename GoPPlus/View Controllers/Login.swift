@@ -39,32 +39,24 @@ class Login: UIViewController {
 
     @IBAction func doLogin(_ sender: Any) {
         self.view.endEditing(true)
-        
         let email = self.emailField.text!
         let pass  = self.passField.text!
-        
         let emailPlaceholder = self.emailField.placeholder!
         let passPlaceholder = self.passField.placeholder!
-        
         var message = ""
         
         if !Validator.isRequired(text: email) {
             message += "\n" + Validator.replaceMessage(name: emailPlaceholder, value: email, message: Validator.requiredError)
         }
-        
         if !Validator.isEmail(email: email) {
             message += "\n" + Validator.replaceMessage(name: emailPlaceholder, value: email, message: Validator.emailError)
         }
-        
         if !Validator.isRequired(text: pass) {
             message += "\n" + Validator.replaceMessage(name: passPlaceholder, value: pass, message: Validator.requiredError)
         }
-        
         if !Validator.isPassword(password: pass) {
             message += "\n" + Validator.replaceMessage(name: passPlaceholder, value: pass, message: Validator.passwordErrorLogin)
         }
-        
-
         if message.isEmpty {
             self.loginRequest(email: email, pass: pass)
         } else {
@@ -75,24 +67,19 @@ class Login: UIViewController {
 
     private func loginRequest(email: String, pass: String) {
         let credential = Credentials(email: email, password: pass.md5())
-        
         guard let uploadData = try? JSONEncoder().encode(credential) else {
             Constants.showMessage(msg: "Algo ha pasado, intenta nuevamente")
             return
         }
-        
         self.activity.startAnimating()
         self.view.isUserInteractionEnabled = false
-        
         Constants.postRequest(endpoint: Constants.APIEndpoint.client + "login", bodyData: uploadData) { response in
             DispatchQueue.main.async {
                 self.activity.stopAnimating()
                 self.view.isUserInteractionEnabled = true
-                
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: response as Any, options: [])
                     let result =  try JSONDecoder().decode(AppUser.self, from: jsonData)
-                    
                     if result.status == true {
                         if result.esActivo == 1 {
                             Constants.store(key: Constants.DBKeys.user + "correo", value: self.emailField.text!)
