@@ -8,9 +8,9 @@ class Constants: NSObject {
     static let SECRET:String = "g0sp3qtrUm_"
     
     struct APIEndpoint {
-        static let client : String   =  "https://gopplusc.azurewebsites.net/"
-        static let driver : String   =  "https://gopplusd.azurewebsites.net/"
-        static let payment : String  =  "https://gopplusp.azurewebsites.net/"
+        static let client : String   =  "https://goppluscc.azurewebsites.net/"
+        static let driver : String   =  "https://gopplusdd.azurewebsites.net/"
+        static let payment : String  =  "https://goppluspp.azurewebsites.net/"
         static let admin : String    =  "https://gopplus.website/"
     }
     
